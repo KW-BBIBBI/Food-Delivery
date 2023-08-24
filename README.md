@@ -13,7 +13,7 @@
             <br/>
             <a href="https://github.com/SaltnLight-pet">SaltnLight-pet</a>
         <td align="center" width="130px">
-            <a href="https://github.com/Heesun0-0"><img height="100px" width="100px" src="https://https://avatars.githubusercontent.com/u/125299969?v=4"/></a>
+            <a href="https://github.com/Heesun0-0"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/125299969?v=4"/></a>
             <br/>
             <a href="https://github.com/Heesun0-0">Heesun0-0</a>
         <td align="center" width="130px">
