@@ -25,3 +25,17 @@
 </table>
 
 --- 
+
+## Enviroment
+
+```
+Ubuntu : 20.04.6 LTS
+ROS : Noetic
+ROBOT : WeGo-ST MINI
+```
+
+## SLAM & Navigation
+```
+rosrun scout_bringup bringup_can2usb.bash
+roslaunch scout_bringup scout_mini_robot_base.launch
+```
