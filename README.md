@@ -1,4 +1,9 @@
 # WeGo Scout mini Exercise
+```
+Ubuntu : 20.04.6 LTS
+ROS : Noetic
+ROBOT : WeGo-ST MINI
+```
 ---
 ## 💻 팀원
 <table>
