@@ -23,6 +23,7 @@
         </td>
     </tr>
 </table>
+
 --- 
 
 ## Enviroment
@@ -36,5 +37,5 @@ ROBOT : WeGo-ST MINI
 ## SLAM & Navigation
 ```
 rosrun scout_bringup bringup_can2usb.bash
-
+roslaunch scout_bringup scout_mini_robot_base.launch
 ```
