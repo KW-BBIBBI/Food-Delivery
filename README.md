@@ -1,9 +1,4 @@
 # WeGo Scout mini Exercise
-```
-Ubuntu : 20.04.6 LTS
-ROS : Noetic
-ROBOT : WeGo-ST MINI
-```
 ---
 ## 💻 팀원
 <table>
@@ -28,5 +23,16 @@ ROBOT : WeGo-ST MINI
         </td>
     </tr>
 </table>
-
 --- 
+## Enviroment
+```
+Ubuntu : 20.04.6 LTS
+ROS : Noetic
+ROBOT : WeGo-ST MINI
+```
+
+## SLAM & Navigation
+```
+rosrun scout_bringup bringup_can2usb.bash
+
+```
