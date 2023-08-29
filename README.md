@@ -28,14 +28,43 @@
 
 ## Enviroment
 
+|OS|Version|
+|:---:|:---:|
+|Ubuntu|20.04.6 LTS|
+|ROS|Noetic|
+
+
+|HW|Version|
+|:---:|:---:|
+|ROBOT|WeGo-ST MINI|
+
+
+## SLAM
+### ROBOT
+```bash
+rosrun scout_bringup bringup_can2usb.bash
+roslaunch kw robot_bringup.launch
+roslaunch gmapping slam_gmapping_pr2.launch
 ```
-Ubuntu : 20.04.6 LTS
-ROS : Noetic
-ROBOT : WeGo-ST MINI
+### LOCAL
+```bash
+roslaunch kw gmapping_display.launch
+```
+![SLAM](https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/500b42f8-92b0-400b-b0bc-ee13bc765c50)
+
+
+## Navigation
+### ROBOT
+```bash
+rosrun scout_bringup bringup_can2usb.bash
+roslaunch kw robot_bringup.launch
+roslaunch kw navigation.launch
+rosrun kw application.py
+```
+### LOCAL
+```bash
+roslaunch kw navigation_display.launch
 ```
 
-## SLAM & Navigation
-```
-rosrun scout_bringup bringup_can2usb.bash
-roslaunch scout_bringup scout_mini_robot_base.launch
-```
+![NAVI](https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/f256cf20-8b09-485f-92d6-59bc07a8c44a)
+
