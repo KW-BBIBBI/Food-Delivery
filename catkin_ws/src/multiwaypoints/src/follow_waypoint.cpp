@@ -140,7 +140,7 @@ class WaypointFollowing
             geometry_msgs::Pose answer;
             int near_index=findNearestPoint();
             int carrot_index = near_index + 5;
-            if((carrot_index) > waypoints_.size())
+            if((carrot_index) > waypoints_.size() - 1)
             {
                 carrot_index = waypoints_.size();
             }
@@ -169,7 +169,7 @@ int main(int argc, char **argv)
 
     WaypointFollowing wp(file_path_);
 
-    ros::Rate rate(20);
+    ros::Rate rate(0.5);
 
     while(ros::ok())
     {
