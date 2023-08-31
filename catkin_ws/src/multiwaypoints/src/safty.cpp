@@ -79,16 +79,17 @@ class WaypointFollowing
 
         void publishGoal()
         {
+            double safe_dis=10.0;
             obs_flag=obs_checker();
 
-            if (!obs_flag)
+            if ((!obs_flag)&&(distance_calc()<safe_dis))
             {
                 /* code
                 장애물 발견된 경우 stop하는 코드 작성
             
                  */
 
-                obs_distance=distance_calc();
+                
             }
             else{
             
@@ -113,8 +114,6 @@ class WaypointFollowing
 
     private:
         bool obs_flag=false;
-
-
         ros::NodeHandle nh_;
         
         //to get the current position of map and base_link
@@ -175,6 +174,7 @@ class WaypointFollowing
 
         double distance_calc()
         {
+            //장애물과 로봇 사이의 거리구하는 함수
             double obs_distance = 0.0;
 
 
