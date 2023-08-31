@@ -1,0 +1,8 @@
+prefix=/home/pet/Food-Delivery/local_kw/devel
+
+Name: voxel_grid
+Description: Description of voxel_grid
+Version: 1.17.1
+Cflags: -I/home/pet/Food-Delivery/local_kw/src/navigation/voxel_grid/include
+Libs: -L${prefix}/lib -lvoxel_grid
+Requires: roscpp
