@@ -19,7 +19,7 @@
         <td align="center" width="130px">
             <a href="https://github.com/JunseoMin"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/114414158?v=4"/></a>
             <br/>
-            <a href="https://github.com/hongjungin">JunseoMin</a>
+            <a href="https://github.com/JunseoMin">JunseoMin</a>
         </td>
     </tr>
 </table>
