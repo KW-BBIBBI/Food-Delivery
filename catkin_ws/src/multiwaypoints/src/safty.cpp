@@ -22,9 +22,6 @@
 #include "nav_msgs/Path.h"
 #include "geometry_msgs/PoseStamped.h"
 
-/*  */
-
-
 using namespace std;
 
 class WaypointFollowing
@@ -62,6 +59,8 @@ class WaypointFollowing
             path_pub_ = nh_.advertise<nav_msgs::Path>("waypoints", 10);
             point_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("target", 10);
 
+
+
         }
 
         void getPosition()
@@ -69,7 +68,6 @@ class WaypointFollowing
             try
             {
                 transformStamped = tfBuffer.lookupTransform("map", "base_link", ros::Time::now(), ros::Duration(3.0));
-                // current pose
             }
             catch(tf2::TransformException &ex)
             {
@@ -81,26 +79,42 @@ class WaypointFollowing
 
         void publishGoal()
         {
-            path_.header.frame_id="map";
+            obs_flag=obs_checker();
 
-            path_.header.stamp = ros::Time::now();
-            path_.poses = waypoints_;
-            path_pub_.publish(path_);
-
-            carrot.target_pose.pose=setGoal();
-            carrot.target_pose.header.frame_id = "map";
-            carrot.target_pose.header.stamp = ros::Time::now();
+            if (!obs_flag)
+            {
+                /* code
+                장애물 발견된 경우 stop하는 코드 작성
             
-            carrot_point.header.frame_id = "map";
-            carrot_point.header.stamp = ros::Time::now();
-            carrot_point.pose = carrot.target_pose.pose;
+                 */
 
-            point_pub_.publish(carrot_point);      
+                obs_distance=distance_calc();
+            }
+            else{
+            
+                path_.header.frame_id="map";
+                path_.header.stamp = ros::Time::now();
+                path_.poses = waypoints_;
+                path_pub_.publish(path_);
 
-            mbclient.sendGoal(carrot);
+                carrot.target_pose.pose=setGoal();
+                carrot.target_pose.header.frame_id = "map";
+                carrot.target_pose.header.stamp = ros::Time::now();
+            
+                carrot_point.header.frame_id = "map";
+                carrot_point.header.stamp = ros::Time::now();
+                carrot_point.pose = carrot.target_pose.pose;
+
+                point_pub_.publish(carrot_point);
+            }
+
+
         }
 
     private:
+        bool obs_flag=false;
+
+
         ros::NodeHandle nh_;
         
         //to get the current position of map and base_link
@@ -157,6 +171,20 @@ class WaypointFollowing
             answer.orientation.y = waypoints_[carrot_index].pose.orientation.y;
             answer.orientation.z = waypoints_[carrot_index].pose.orientation.z;
             return answer;
+        }
+
+        double distance_calc()
+        {
+            double obs_distance = 0.0;
+
+
+            return obs_distance;
+        }
+
+        bool obs_checker()
+        {
+            //장애물 있는지 없는지 판단하는 함수
+            return true;
         }
 };
 
