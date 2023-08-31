@@ -23,7 +23,7 @@
 #include "geometry_msgs/PoseStamped.h"
 
 /*for obstacle*/
-#include "obstacle_detector/Obstacles.h"
+//#include <obstacle_detector/Obstacles.h> ---> 질문!
 
 using namespace std;
 
@@ -228,7 +228,7 @@ class WaypointFollowing
             double min_obs_dist = 9999999.0; // MAX
 
             // 점과 점사이 거리 (seg가 직선이라는 가정)
-            double seg_length = Segment.length()
+            double seg_length = Segment.length();
             
             // 내분으로 seg의 중간 좌표 구하기
             for(int i=0; i < seg_length; i++)
@@ -242,7 +242,7 @@ class WaypointFollowing
             for(int i=0; i < seg_length; i++)
             {
                 // 점과 점사이 거리 공식
-                double dist = sqrt(pow(transformStamped.x -  middle_seg[i].x, 2) + pow(transformStamped.y -  middle_seg[i].y, 2) + pow(transformStamped.z -  middle_seg[i].z, 2));
+                double dist = sqrt(pow(transformStamped.transform.translation.x -  middle_seg[i].x, 2) + pow(transformStamped.transform.translation.y -  middle_seg[i].y, 2) + pow(transformStamped.transform.translation.z -  middle_seg[i].z, 2));
                 // 계산한 것이 최소 거리보다 작으면
                 if(min_obs_dist > dist) min_obs_dist = dist;
             }
