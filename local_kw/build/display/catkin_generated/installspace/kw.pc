@@ -1,8 +1,0 @@
-prefix=/home/pet/Food-Delivery/local_kw/install
-
-Name: kw
-Description: Description of kw
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
