@@ -68,5 +68,20 @@ roslaunch kw navigation_display.launch
 
 ![NAVI](https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/f256cf20-8b09-485f-92d6-59bc07a8c44a)
 
-## Multiwaypoint
+## MultiwayPoint
+
+### ROBOT
+```bash
+rosrun scout_bringup bringup_can2usb.bash
+roslaunch kw robot_bringup.launch
+roslaunch kw navigation.launch
+rosrun multiwaypoints follow_waypoint
+```
+
+### LOCAL
+```bash
+rviz
+```
 ![WAYPOINT](https://github.com/KW-BBIBBI/Food-Delivery/assets/125299969/0978ba11-3dcf-4232-9b1d-62c020fd68d2)
+
+![MultiWay](https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/76d2d5d2-0305-4f02-ab34-566cc73b73fd)

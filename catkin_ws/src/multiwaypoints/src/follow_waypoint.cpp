@@ -169,7 +169,7 @@ int main(int argc, char **argv)
 
     WaypointFollowing wp(file_path_);
 
-    ros::Rate rate(0.5);
+    ros::Rate rate(0.1);
 
     while(ros::ok())
     {
