@@ -22,6 +22,9 @@
 #include "nav_msgs/Path.h"
 #include "geometry_msgs/PoseStamped.h"
 
+/*for obstacle*/
+#include "obstacle_detector/Obstacles.h"
+
 using namespace std;
 
 class WaypointFollowing
@@ -59,8 +62,8 @@ class WaypointFollowing
             path_pub_ = nh_.advertise<nav_msgs::Path>("waypoints", 10);
             point_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("target", 10);
 
-
-
+            
+            obs_subs = nh_.subscribe("/raw_obstacles",1,&WaypointFollowing::obstaclesCB, this)
         }
 
         void getPosition()
@@ -82,23 +85,17 @@ class WaypointFollowing
             double safe_dis=10.0;
             obs_flag=obs_checker();
 
-            if ((!obs_flag)&&(distance_calc()<safe_dis))
+            if ((obs_flag)&&(distance_calc()<safe_dis))
             {
                 /* code
-                장애물 발견된 경우 stop하는 코드 작성
-            
+                장애물 발견된 경우 stop하는 코드 작성            
                  */
-
-                
-            }
-            else{
-            
                 path_.header.frame_id="map";
                 path_.header.stamp = ros::Time::now();
                 path_.poses = waypoints_;
                 path_pub_.publish(path_);
 
-                carrot.target_pose.pose=setGoal();
+                carrot.target_pose.pose=prev_carrot.target_pose.pose;
                 carrot.target_pose.header.frame_id = "map";
                 carrot.target_pose.header.stamp = ros::Time::now();
             
@@ -108,8 +105,30 @@ class WaypointFollowing
 
                 point_pub_.publish(carrot_point);
             }
+            else{
+                path_.header.frame_id="map";
+                path_.header.stamp = ros::Time::now();
+                path_.poses = waypoints_;
+                path_pub_.publish(path_);
+
+                carrot.target_pose.pose=setGoal();
+                prev_carrot.target_pose.pose=carrot.target_pose.pose;
+
+                carrot.target_pose.header.frame_id = "map";
+                carrot.target_pose.header.stamp = ros::Time::now();
+            
+                carrot_point.header.frame_id = "map";
+                carrot_point.header.stamp = ros::Time::now();
+                carrot_point.pose = carrot.target_pose.pose;
+
+                point_pub_.publish(carrot_point);
+            }
+        }
 
 
+        void obstaclesCB(const obstacle_detector::Obstacles::ConstPtr& msg)
+        {
+            obstacles_msg = msg;
         }
 
     private:
@@ -129,8 +148,13 @@ class WaypointFollowing
         /*for the move_base*/
         actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> mbclient;
         move_base_msgs::MoveBaseGoal carrot;
+        move_base_msgs::MoveBaseGoal prev_carrot;
         geometry_msgs::PoseStamped carrot_point;
         ros::Publisher point_pub_;
+
+        /*for obstacle*/
+        ros::Subscriber obs_subs;
+        obstacle_detector::Obstacles::ConstPtr obstacles_msg;
 
         int findNearestPoint()
         {
@@ -169,6 +193,29 @@ class WaypointFollowing
             answer.orientation.x = waypoints_[carrot_index].pose.orientation.x;
             answer.orientation.y = waypoints_[carrot_index].pose.orientation.y;
             answer.orientation.z = waypoints_[carrot_index].pose.orientation.z;
+
+            return answer;
+        }
+
+        geometry_msgs::Pose setGoal_Post()
+        {
+            geometry_msgs::Pose answer;
+            int near_index=findNearestPoint();
+            int carrot_index = near_index + 5;
+            if((carrot_index) > waypoints_.size() - 1)
+            {
+                carrot_index = waypoints_.size();
+            }
+
+            // cout<<carrot_index<<endl;
+            
+            answer.position.x = waypoints_[carrot_index].pose.position.x;
+            answer.position.y = waypoints_[carrot_index].pose.position.y;
+            answer.position.z = waypoints_[carrot_index].pose.position.z;
+            answer.orientation.w = waypoints_[carrot_index].pose.orientation.w;
+            answer.orientation.x = waypoints_[carrot_index].pose.orientation.x;
+            answer.orientation.y = waypoints_[carrot_index].pose.orientation.y;
+            answer.orientation.z = waypoints_[carrot_index].pose.orientation.z;
             return answer;
         }
 
@@ -183,8 +230,18 @@ class WaypointFollowing
 
         bool obs_checker()
         {
-            //장애물 있는지 없는지 판단하는 함수
-            return true;
+            if (obstacles_msg->segments.empty() && obstacles_msg->circles.empty())
+            {
+                // No obstacles detected
+                ROS_INFO("No obstacles detected.");
+                return false;
+            }
+            else
+            {
+                // Obstacles detected
+                ROS_WARN("Obstacles detected.");
+                return true;
+            }
         }
 };
 
