@@ -137,14 +137,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/pet/Food-Delivery/local_kw/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/pet/Food-Delivery/local_kw/build/CMakeFiles /home/pet/Food-Delivery/local_kw/build/kw/CMakeFiles/progress.marks
-	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 kw/all
+	cd /home/pet/Food-Delivery/local_kw/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/pet/Food-Delivery/local_kw/build/CMakeFiles /home/pet/Food-Delivery/local_kw/build/display/CMakeFiles/progress.marks
+	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 display/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet/Food-Delivery/local_kw/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 kw/clean
+	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 display/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,12 +154,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 kw/preinstall
+	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 display/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 kw/preinstall
+	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 display/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
@@ -168,18 +168,18 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-kw/CMakeFiles/_catkin_empty_exported_target.dir/rule:
-	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 kw/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : kw/CMakeFiles/_catkin_empty_exported_target.dir/rule
+display/CMakeFiles/_catkin_empty_exported_target.dir/rule:
+	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f CMakeFiles/Makefile2 display/CMakeFiles/_catkin_empty_exported_target.dir/rule
+.PHONY : display/CMakeFiles/_catkin_empty_exported_target.dir/rule
 
 # Convenience name for target.
-_catkin_empty_exported_target: kw/CMakeFiles/_catkin_empty_exported_target.dir/rule
+_catkin_empty_exported_target: display/CMakeFiles/_catkin_empty_exported_target.dir/rule
 
 .PHONY : _catkin_empty_exported_target
 
 # fast build rule for target.
 _catkin_empty_exported_target/fast:
-	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f kw/CMakeFiles/_catkin_empty_exported_target.dir/build.make kw/CMakeFiles/_catkin_empty_exported_target.dir/build
+	cd /home/pet/Food-Delivery/local_kw/build && $(MAKE) -f display/CMakeFiles/_catkin_empty_exported_target.dir/build.make display/CMakeFiles/_catkin_empty_exported_target.dir/build
 .PHONY : _catkin_empty_exported_target/fast
 
 # Help Target

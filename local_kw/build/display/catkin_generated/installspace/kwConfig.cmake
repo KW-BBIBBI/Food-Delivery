@@ -67,7 +67,7 @@ set(kw_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(kw_SOURCE_PREFIX /home/pet/Food-Delivery/local_kw/src/kw)
+  set(kw_SOURCE_PREFIX /home/pet/Food-Delivery/local_kw/src/display)
   set(kw_DEVEL_PREFIX /home/pet/Food-Delivery/local_kw/devel)
   set(kw_INSTALL_PREFIX "")
   set(kw_PREFIX ${kw_DEVEL_PREFIX})

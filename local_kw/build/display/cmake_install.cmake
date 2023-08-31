@@ -1,4 +1,4 @@
-# Install script for directory: /home/pet/Food-Delivery/local_kw/src/kw
+# Install script for directory: /home/pet/Food-Delivery/local_kw/src/display
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/pet/Food-Delivery/local_kw/build/kw/catkin_generated/installspace/kw.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/pet/Food-Delivery/local_kw/build/display/catkin_generated/installspace/kw.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kw/cmake" TYPE FILE FILES
-    "/home/pet/Food-Delivery/local_kw/build/kw/catkin_generated/installspace/kwConfig.cmake"
-    "/home/pet/Food-Delivery/local_kw/build/kw/catkin_generated/installspace/kwConfig-version.cmake"
+    "/home/pet/Food-Delivery/local_kw/build/display/catkin_generated/installspace/kwConfig.cmake"
+    "/home/pet/Food-Delivery/local_kw/build/display/catkin_generated/installspace/kwConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kw" TYPE FILE FILES "/home/pet/Food-Delivery/local_kw/src/kw/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kw" TYPE FILE FILES "/home/pet/Food-Delivery/local_kw/src/display/package.xml")
 endif()
 

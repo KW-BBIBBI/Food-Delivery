@@ -8,9 +8,6 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/pet/Food-Delivery/local_kw/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/pet/Food-Delivery/local_kw/devel/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/home/pet/Food-Delivery/local_kw/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/pet/Food-Delivery/local_kw/build'
-export PYTHONPATH="/home/pet/Food-Delivery/local_kw/devel/lib/python3/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES='/home/pet/Food-Delivery/local_kw/devel/share/common-lisp'
 export ROS_PACKAGE_PATH="/home/pet/Food-Delivery/local_kw/src:$ROS_PACKAGE_PATH"

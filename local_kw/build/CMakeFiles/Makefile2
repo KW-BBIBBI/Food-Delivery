@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/pet/Food-Delivery/local_kw/build
 
 # The main recursive "all" target.
 all: gtest/all
-all: kw/all
+all: display/all
 all: navigation/navigation/all
 all: navigation/map_server/all
 all: navigation/amcl/all
@@ -78,7 +78,7 @@ all: scout_mini_2dnav/all
 
 # The main recursive "preinstall" target.
 preinstall: gtest/preinstall
-preinstall: kw/preinstall
+preinstall: display/preinstall
 preinstall: navigation/navigation/preinstall
 preinstall: navigation/map_server/preinstall
 preinstall: navigation/amcl/preinstall
@@ -107,7 +107,7 @@ clean: CMakeFiles/clean_test_results.dir/clean
 clean: CMakeFiles/tests.dir/clean
 clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
-clean: kw/clean
+clean: display/clean
 clean: navigation/navigation/clean
 clean: navigation/map_server/clean
 clean: navigation/amcl/clean
@@ -128,6 +128,24 @@ clean: navigation/move_base/clean
 clean: scout_mini_2dnav/clean
 
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory display
+
+# Recursive "all" directory target.
+display/all:
+
+.PHONY : display/all
+
+# Recursive "preinstall" directory target.
+display/preinstall:
+
+.PHONY : display/preinstall
+
+# Recursive "clean" directory target.
+display/clean: display/CMakeFiles/_catkin_empty_exported_target.dir/clean
+
+.PHONY : display/clean
 
 #=============================================================================
 # Directory level rules for directory gtest
@@ -185,24 +203,6 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest_main.dir/clean
 gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 
 .PHONY : gtest/googletest/clean
-
-#=============================================================================
-# Directory level rules for directory kw
-
-# Recursive "all" directory target.
-kw/all:
-
-.PHONY : kw/all
-
-# Recursive "preinstall" directory target.
-kw/preinstall:
-
-.PHONY : kw/preinstall
-
-# Recursive "clean" directory target.
-kw/clean: kw/CMakeFiles/_catkin_empty_exported_target.dir/clean
-
-.PHONY : kw/clean
 
 #=============================================================================
 # Directory level rules for directory navigation/amcl
@@ -1160,31 +1160,31 @@ gtest/googletest/CMakeFiles/gtest.dir/clean:
 .PHONY : gtest/googletest/CMakeFiles/gtest.dir/clean
 
 #=============================================================================
-# Target rules for target kw/CMakeFiles/_catkin_empty_exported_target.dir
+# Target rules for target display/CMakeFiles/_catkin_empty_exported_target.dir
 
 # All Build rule for target.
-kw/CMakeFiles/_catkin_empty_exported_target.dir/all:
-	$(MAKE) -f kw/CMakeFiles/_catkin_empty_exported_target.dir/build.make kw/CMakeFiles/_catkin_empty_exported_target.dir/depend
-	$(MAKE) -f kw/CMakeFiles/_catkin_empty_exported_target.dir/build.make kw/CMakeFiles/_catkin_empty_exported_target.dir/build
+display/CMakeFiles/_catkin_empty_exported_target.dir/all:
+	$(MAKE) -f display/CMakeFiles/_catkin_empty_exported_target.dir/build.make display/CMakeFiles/_catkin_empty_exported_target.dir/depend
+	$(MAKE) -f display/CMakeFiles/_catkin_empty_exported_target.dir/build.make display/CMakeFiles/_catkin_empty_exported_target.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pet/Food-Delivery/local_kw/build/CMakeFiles --progress-num= "Built target _catkin_empty_exported_target"
-.PHONY : kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+.PHONY : display/CMakeFiles/_catkin_empty_exported_target.dir/all
 
 # Build rule for subdir invocation for target.
-kw/CMakeFiles/_catkin_empty_exported_target.dir/rule: cmake_check_build_system
+display/CMakeFiles/_catkin_empty_exported_target.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet/Food-Delivery/local_kw/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 display/CMakeFiles/_catkin_empty_exported_target.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/pet/Food-Delivery/local_kw/build/CMakeFiles 0
-.PHONY : kw/CMakeFiles/_catkin_empty_exported_target.dir/rule
+.PHONY : display/CMakeFiles/_catkin_empty_exported_target.dir/rule
 
 # Convenience name for target.
-_catkin_empty_exported_target: kw/CMakeFiles/_catkin_empty_exported_target.dir/rule
+_catkin_empty_exported_target: display/CMakeFiles/_catkin_empty_exported_target.dir/rule
 
 .PHONY : _catkin_empty_exported_target
 
 # clean rule for target.
-kw/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	$(MAKE) -f kw/CMakeFiles/_catkin_empty_exported_target.dir/build.make kw/CMakeFiles/_catkin_empty_exported_target.dir/clean
-.PHONY : kw/CMakeFiles/_catkin_empty_exported_target.dir/clean
+display/CMakeFiles/_catkin_empty_exported_target.dir/clean:
+	$(MAKE) -f display/CMakeFiles/_catkin_empty_exported_target.dir/build.make display/CMakeFiles/_catkin_empty_exported_target.dir/clean
+.PHONY : display/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 #=============================================================================
 # Target rules for target navigation/map_server/CMakeFiles/_run_tests_map_server_rostest_test_rtest.xml.dir
@@ -9162,7 +9162,7 @@ navigation/base_local_planner/CMakeFiles/_run_tests_base_local_planner.dir/clean
 # Target rules for target navigation/base_local_planner/CMakeFiles/trajectory_planner_ros.dir
 
 # All Build rule for target.
-navigation/base_local_planner/CMakeFiles/trajectory_planner_ros.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/base_local_planner/CMakeFiles/trajectory_planner_ros.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/base_local_planner/CMakeFiles/trajectory_planner_ros.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/base_local_planner/CMakeFiles/trajectory_planner_ros.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/base_local_planner/CMakeFiles/trajectory_planner_ros.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -9271,7 +9271,7 @@ navigation/base_local_planner/CMakeFiles/trajectory_planner_ros.dir/clean:
 # Target rules for target navigation/base_local_planner/CMakeFiles/point_grid.dir
 
 # All Build rule for target.
-navigation/base_local_planner/CMakeFiles/point_grid.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/base_local_planner/CMakeFiles/point_grid.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/base_local_planner/CMakeFiles/point_grid.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/base_local_planner/CMakeFiles/point_grid.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/base_local_planner/CMakeFiles/point_grid.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -9605,7 +9605,7 @@ navigation/base_local_planner/CMakeFiles/run_tests_base_local_planner_gtest_line
 # Target rules for target navigation/carrot_planner/CMakeFiles/carrot_planner.dir
 
 # All Build rule for target.
-navigation/carrot_planner/CMakeFiles/carrot_planner.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/carrot_planner/CMakeFiles/carrot_planner.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/carrot_planner/CMakeFiles/carrot_planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/carrot_planner/CMakeFiles/carrot_planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/carrot_planner/CMakeFiles/carrot_planner.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -9715,7 +9715,7 @@ navigation/carrot_planner/CMakeFiles/carrot_planner.dir/clean:
 # Target rules for target navigation/clear_costmap_recovery/CMakeFiles/clear_costmap_recovery.dir
 
 # All Build rule for target.
-navigation/clear_costmap_recovery/CMakeFiles/clear_costmap_recovery.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/clear_costmap_recovery/CMakeFiles/clear_costmap_recovery.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/clear_costmap_recovery/CMakeFiles/clear_costmap_recovery.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/clear_costmap_recovery/CMakeFiles/clear_costmap_recovery.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/clear_costmap_recovery/CMakeFiles/clear_costmap_recovery.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -10039,7 +10039,7 @@ navigation/clear_costmap_recovery/CMakeFiles/_run_tests_clear_costmap_recovery_r
 # Target rules for target navigation/dwa_local_planner/CMakeFiles/dwa_local_planner.dir
 
 # All Build rule for target.
-navigation/dwa_local_planner/CMakeFiles/dwa_local_planner.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/dwa_local_planner/CMakeFiles/dwa_local_planner.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/dwa_local_planner/CMakeFiles/dwa_local_planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/dwa_local_planner/CMakeFiles/dwa_local_planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/dwa_local_planner/CMakeFiles/dwa_local_planner.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -10177,7 +10177,7 @@ navigation/dwa_local_planner/CMakeFiles/dwa_local_planner_gencfg.dir/clean:
 # Target rules for target navigation/move_slow_and_clear/CMakeFiles/move_slow_and_clear.dir
 
 # All Build rule for target.
-navigation/move_slow_and_clear/CMakeFiles/move_slow_and_clear.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/move_slow_and_clear/CMakeFiles/move_slow_and_clear.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/move_slow_and_clear/CMakeFiles/move_slow_and_clear.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/move_slow_and_clear/CMakeFiles/move_slow_and_clear.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/move_slow_and_clear/CMakeFiles/move_slow_and_clear.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -10592,7 +10592,7 @@ navigation/navfn/CMakeFiles/navfn_generate_messages_lisp.dir/clean:
 # Target rules for target navigation/navfn/CMakeFiles/navfn.dir
 
 # All Build rule for target.
-navigation/navfn/CMakeFiles/navfn.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/navfn/CMakeFiles/navfn.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/navfn/CMakeFiles/navfn.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/navfn/CMakeFiles/navfn.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/navfn/CMakeFiles/navfn.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -11029,7 +11029,7 @@ navigation/navfn/test/CMakeFiles/_run_tests_navfn_gtest_path_calc_test.dir/clean
 # Target rules for target navigation/global_planner/CMakeFiles/planner.dir
 
 # All Build rule for target.
-navigation/global_planner/CMakeFiles/planner.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/global_planner/CMakeFiles/planner.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/global_planner/CMakeFiles/planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/global_planner/CMakeFiles/planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/global_planner/CMakeFiles/planner.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -11139,7 +11139,7 @@ navigation/global_planner/CMakeFiles/planner.dir/clean:
 # Target rules for target navigation/global_planner/CMakeFiles/global_planner.dir
 
 # All Build rule for target.
-navigation/global_planner/CMakeFiles/global_planner.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/global_planner/CMakeFiles/global_planner.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/global_planner/CMakeFiles/global_planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/global_planner/CMakeFiles/global_planner.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/global_planner/CMakeFiles/global_planner.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -11275,7 +11275,7 @@ navigation/global_planner/CMakeFiles/global_planner_gencfg.dir/clean:
 # Target rules for target navigation/rotate_recovery/CMakeFiles/rotate_recovery.dir
 
 # All Build rule for target.
-navigation/rotate_recovery/CMakeFiles/rotate_recovery.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/rotate_recovery/CMakeFiles/rotate_recovery.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/rotate_recovery/CMakeFiles/rotate_recovery.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/rotate_recovery/CMakeFiles/rotate_recovery.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/rotate_recovery/CMakeFiles/rotate_recovery.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -11466,7 +11466,7 @@ navigation/move_base/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/clea
 # Target rules for target navigation/move_base/CMakeFiles/move_base_node.dir
 
 # All Build rule for target.
-navigation/move_base/CMakeFiles/move_base_node.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/move_base/CMakeFiles/move_base_node.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/move_base/CMakeFiles/move_base_node.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/move_base/CMakeFiles/move_base_node.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/move_base/CMakeFiles/move_base_node.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
@@ -11650,7 +11650,7 @@ navigation/move_base/CMakeFiles/move_base_gencfg.dir/clean:
 # Target rules for target navigation/move_base/CMakeFiles/move_base.dir
 
 # All Build rule for target.
-navigation/move_base/CMakeFiles/move_base.dir/all: kw/CMakeFiles/_catkin_empty_exported_target.dir/all
+navigation/move_base/CMakeFiles/move_base.dir/all: display/CMakeFiles/_catkin_empty_exported_target.dir/all
 navigation/move_base/CMakeFiles/move_base.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/all
 navigation/move_base/CMakeFiles/move_base.dir/all: navigation/map_server/CMakeFiles/tf2_msgs_generate_messages_lisp.dir/all
 navigation/move_base/CMakeFiles/move_base.dir/all: navigation/map_server/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all

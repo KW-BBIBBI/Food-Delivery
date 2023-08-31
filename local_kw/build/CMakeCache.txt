@@ -910,10 +910,10 @@ image_transport_DIR:PATH=/opt/ros/noetic/share/image_transport/cmake
 interactive_markers_DIR:PATH=/opt/ros/noetic/share/interactive_markers/cmake
 
 //Value Computed by CMake
-kw_BINARY_DIR:STATIC=/home/pet/Food-Delivery/local_kw/build/kw
+kw_BINARY_DIR:STATIC=/home/pet/Food-Delivery/local_kw/build/display
 
 //Value Computed by CMake
-kw_SOURCE_DIR:STATIC=/home/pet/Food-Delivery/local_kw/src/kw
+kw_SOURCE_DIR:STATIC=/home/pet/Food-Delivery/local_kw/src/display
 
 //The directory containing a CMake configuration file for laser_geometry.
 laser_geometry_DIR:PATH=/opt/ros/noetic/share/laser_geometry/cmake
