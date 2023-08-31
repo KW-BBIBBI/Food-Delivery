@@ -48,7 +48,7 @@ roslaunch gmapping slam_gmapping_pr2.launch
 ```
 ### LOCAL
 ```bash
-roslaunch kw gmapping_display.launch
+roslaunch display gmapping_display.launch
 ```
 ![SLAM](https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/500b42f8-92b0-400b-b0bc-ee13bc765c50)
 
@@ -63,7 +63,7 @@ rosrun kw application.py
 ```
 ### LOCAL
 ```bash
-roslaunch kw navigation_display.launch
+roslaunch display navigation_display.launch
 ```
 
 ![NAVI](https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/f256cf20-8b09-485f-92d6-59bc07a8c44a)
