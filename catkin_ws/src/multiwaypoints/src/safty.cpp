@@ -23,7 +23,7 @@
 #include "geometry_msgs/PoseStamped.h"
 
 /*for obstacle*/
-//#include <obstacle_detector/Obstacles.h> ---> 질문!
+#include <obstacle_detector/Obstacles.h> //---> 질문!
 
 using namespace std;
 
