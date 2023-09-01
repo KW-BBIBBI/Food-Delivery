@@ -22,6 +22,9 @@
 #include "nav_msgs/Path.h"
 #include "geometry_msgs/PoseStamped.h"
 
+/*  */
+
+
 using namespace std;
 
 class WaypointFollowing
@@ -66,6 +69,7 @@ class WaypointFollowing
             try
             {
                 transformStamped = tfBuffer.lookupTransform("map", "base_link", ros::Time::now(), ros::Duration(3.0));
+                // current pose
             }
             catch(tf2::TransformException &ex)
             {
@@ -78,6 +82,7 @@ class WaypointFollowing
         void publishGoal()
         {
             path_.header.frame_id="map";
+
             path_.header.stamp = ros::Time::now();
             path_.poses = waypoints_;
             path_pub_.publish(path_);
@@ -90,12 +95,9 @@ class WaypointFollowing
             carrot_point.header.stamp = ros::Time::now();
             carrot_point.pose = carrot.target_pose.pose;
 
-            point_pub_.publish(carrot_point);
+            point_pub_.publish(carrot_point);      
 
-            
             mbclient.sendGoal(carrot);
-
-
         }
 
     private:
@@ -169,7 +171,7 @@ int main(int argc, char **argv)
 
     WaypointFollowing wp(file_path_);
 
-    ros::Rate rate(0.5);
+    ros::Rate rate(0.1);
 
     while(ros::ok())
     {
