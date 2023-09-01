@@ -80,7 +80,7 @@ rosrun multiwaypoints follow_waypoint
 
 ### LOCAL
 ```bash
-rviz
+roslaunch display navigation_display.launch
 ```
 ![WAYPOINT](https://github.com/KW-BBIBBI/Food-Delivery/assets/125299969/0978ba11-3dcf-4232-9b1d-62c020fd68d2)
 
