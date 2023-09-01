@@ -18,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   nav_msgs
   roslib
+  obstacle_detector
 )
 
 ## System dependencies are found with CMake's conventions
