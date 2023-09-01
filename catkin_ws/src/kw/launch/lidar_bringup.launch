@@ -1,6 +1,0 @@
-<launch>
-    <include file="$(find rplidar_ros)/launch/rplidar_a1_front.launch" />
-    <include file="$(find rplidar_ros)/launch/rplidar_a1_back.launch" />
-    <include file="$(find ira_laser_tools)/launch/laserscan_multi_merger.launch" />
-    <include file="$(find laser_filters)/examples/box_filter_example.launch" />
-</launch>
