@@ -15,8 +15,8 @@
 
     <rosparam file="$(find scout_mini_2dnav)/params/move_base_params.yaml" command="load" />
     
-    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
-    
+    <!-- <param name="base_global_planner" type="string" value="navfn/NavfnROS" /> -->
+    <param name="base_global_planner" type="string" value="carrot_planner/CarrotPlanner" />
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>	
     <param name="clearing_rotation_allowed" value="true" />
 

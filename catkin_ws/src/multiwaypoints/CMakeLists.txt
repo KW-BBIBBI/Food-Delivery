@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(multiwaypoints)
 
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -122,7 +123,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+  include 
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -143,6 +144,8 @@ add_executable(save_waypoint src/save_waypoint.cpp)
 target_link_libraries(save_waypoint ${catkin_LIBRARIES})
 add_executable(follow_waypoint src/follow_waypoint.cpp)
 target_link_libraries(follow_waypoint ${catkin_LIBRARIES})
+add_executable(safty src/safty.cpp)
+target_link_libraries(safty ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -211,3 +214,5 @@ target_link_libraries(follow_waypoint ${catkin_LIBRARIES})
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
