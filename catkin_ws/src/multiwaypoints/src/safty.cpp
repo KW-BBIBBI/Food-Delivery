@@ -221,9 +221,8 @@ class WaypointFollowing
 
         double distance_calc()
         {
-            // seg_first_point, seg_last_point (x,y,z)
             geometry_msgs::Point first_seg, last_seg;
-            geometry_msgs::Point middle_seg[] = {};
+            geometry_msgs::Point seg_point
 
             double min_obs_dist = 9999999.0; // MAX
 
@@ -233,17 +232,12 @@ class WaypointFollowing
             // 내분으로 seg의 중간 좌표 구하기
             for(int i=0; i < seg_length; i++)
             {
-                middle_seg[i].x = i * first_seg.x + (seg_length - i) * last_seg.x / seg_length;
-                middle_seg[i].y = i * first_seg.y + (seg_length - i) * last_seg.y / seg_length; 
-                middle_seg[i].z = i * first_seg.z + (seg_length - i) * last_seg.z / seg_length; 
-            }
+                seg_point.x = i * first_seg.x + (seg_length - i) * last_seg.x / seg_length;
+                seg_point.y = i * first_seg.y + (seg_length - i) * last_seg.y / seg_length; 
+                seg_point.z = i * first_seg.z + (seg_length - i) * last_seg.z / seg_length;
 
-            //장애물과 로봇 사이의 거리구하는 함수
-            for(int i=0; i < seg_length; i++)
-            {
-                // 점과 점사이 거리 공식
-                double dist = sqrt(pow(transformStamped.transform.translation.x -  middle_seg[i].x, 2) + pow(transformStamped.transform.translation.y -  middle_seg[i].y, 2) + pow(transformStamped.transform.translation.z -  middle_seg[i].z, 2));
-                // 계산한 것이 최소 거리보다 작으면
+                //장애물과 로봇 사이의 거리구하는 함수
+                double dist = sqrt(pow(transformStamped.transform.translation.x -  seg_point.x, 2) + pow(transformStamped.transform.translation.y -  seg_point.y, 2) + pow(transformStamped.transform.translation.z -  seg_point.z, 2));
                 if(min_obs_dist > dist) min_obs_dist = dist;
             }
             return min_obs_dist; // 최소 거리 return
