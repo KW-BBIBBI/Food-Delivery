@@ -24,7 +24,7 @@
 
 /*for obstacle*/
 #include <obstacle_detector/Obstacles.h> //---> 질문!
-#define MAXSEG 100
+
 using namespace std;
 
 class WaypointFollowing
@@ -126,11 +126,11 @@ class WaypointFollowing
         }
 
 
-        void obstaclesCB(const obstacle_detector::Obstacles& msg)
+        void obstaclesCB(const obstacle_detector::Obstacles::ConstPtr& msg)
         {
             obstacles_msg = msg;
-            _segments = msg.segments;
-            _circles = msg.circles;
+            _segments[] = msg.segments;
+            _circles[] = msg.circles;
         }
 
     private:
@@ -157,8 +157,8 @@ class WaypointFollowing
         /*for obstacle*/
         ros::Subscriber obs_subs;
         obstacle_detector::Obstacles::ConstPtr obstacles_msg;
-        obstacle_detector::SegmentObstacle _segments;
-        obstacle_detector::CircleObstacle _circles;
+        obstacle_detector::SegmentObstacle[] _segments;
+        obstacle_detector::CircleObstacle[] _circles;
         //obstacle_detector::obstacles_msg;
 
         int findNearestPoint()
@@ -236,11 +236,24 @@ class WaypointFollowing
            
             geometry_msgs::Point first_seg, last_seg, seg_point;
             first_seg=_segments[i].first_point;
-            last_seg=_segments[i].last_point;
-
-            double seg_length=sqrt(pow(first_seg.x-last_seg.x,2)+pow(first_seg.y-last_seg.y,2));
+            last_seg=_segments[i].last_seg;
+            // double seg_length=sqrt(pow(first_seg.x-last_seg.x,2)+pow(first_seg.y-last_seg.y,2),2);
             
-            for(int i=0; i < seg_length; i++)
+            // for(int i=0; i < seg_length; i++)
+            // {
+            //     seg_point.x = i * first_seg.x + (seg_length - i) * last_seg.x / seg_length;
+            //     seg_point.y = i * first_seg.y + (seg_length - i) * last_seg.y / seg_length; 
+
+            //     //장애물과 로봇 사이의 거리구하는 함수
+            //     double dist = sqrt(pow(seg_point.x, 2) + pow(seg_point.y, 2), 2);
+            //     if(min_obs_dist > dist) min_obs_dist = dist;
+            // }
+            return sqrt(pow(((last_seg.y-first_seg.y)*first_seg.x)-((last_seg.x-first_seg.x)*first_seg.y),2),2)/sqrt(pow(last_seg.y-first_seg.y,2)+pow(last_seg.x-first_seg.x,2)); 
+        }
+
+        bool obs_checker()
+        {
+            if (_segments.empty() && _circles.empty())
             {
                 seg_point.x = (i * first_seg.x + (seg_length - i) * last_seg.x) / seg_length;
                 seg_point.y = (i * first_seg.y + (seg_length - i) * last_seg.y) / seg_length; 
