@@ -82,15 +82,8 @@ class WaypointFollowing
 
         void publishGoal()
         {
-            ROS_INFO("func publishGOal.\n");
-            double safe_dis=10000000.0;
-            obs_flag=obs_checker();
-
-            if ((obs_flag)&&(distance_calc()<safe_dis))
+            if ((obs_flag)&&(dist_flag)) // obstract confirm
             {
-                /* code
-                장애물 발견된 경우 stop하는 코드 작성            
-                 */
                 path_.header.frame_id="map";
                 path_.header.stamp = ros::Time::now();
                 path_.poses = waypoints_;
@@ -129,13 +122,21 @@ class WaypointFollowing
 
         void obstaclesCB(const obstacle_detector::Obstacles::ConstPtr& msg)
         {
+            double safe_dis=10.0;
+
+            obs_flag=obs_checker();
+            
             obstacles.clear();
             obstacles.push_back(*msg);
-            for(auto i=obstacles.begin(); i!= obstacles.end(); ++i)
+            for(int i=0; i< obstacles.size(); i++)
             {
-                for(auto j=obstacles[i].segments.begin(); j!= obstacles[i].segements.end(); ++j)
+                for(int j=0; j<obstacles.size(); j++)
                 {
-                    distance_calc(j);
+                    if(distance_calc(i, j) < safe_dis)
+                    {
+                        dist_flag = true;
+                    }
+                    else dist_flag = false;
                 }
             }
             // 정답
@@ -144,7 +145,10 @@ class WaypointFollowing
         }
 
     private:
+
         bool obs_flag=false;
+        bool dist_flag=false;
+
         ros::NodeHandle nh_;
         
         //to get the current position of map and base_link
@@ -166,7 +170,7 @@ class WaypointFollowing
 
         /*for obstacle*/
         ros::Subscriber obs_subs;
-        vector<obstacle_detector::SegmentObstacle> _segments;
+        vector<obstacle_detector::Obstacles> _segments;
         vector<obstacle_detector::Obstacles> obstacles;
 
         int findNearestPoint()
@@ -196,8 +200,6 @@ class WaypointFollowing
             {
                 carrot_index = waypoints_.size();
             }
-
-            // cout<<carrot_index<<endl;
             
             answer.position.x = waypoints_[carrot_index].pose.position.x;
             answer.position.y = waypoints_[carrot_index].pose.position.y;
@@ -220,8 +222,6 @@ class WaypointFollowing
                 carrot_index = waypoints_.size();
             }
 
-            // cout<<carrot_index<<endl;
-            
             answer.position.x = waypoints_[carrot_index].pose.position.x;
             answer.position.y = waypoints_[carrot_index].pose.position.y;
             answer.position.z = waypoints_[carrot_index].pose.position.z;
@@ -232,30 +232,32 @@ class WaypointFollowing
             return answer;
         }
 
-        double distance_calc(int j)
+        double distance_calc(int i, int j)
         {
             double min_obs_dist = 9999999.0; // MAX
             
-            // double seg_length = sqrt(pow(first_seg.x-last_seg.x,2)+pow(first_seg.y-last_seg.y,2),2);
-            
-            // for(int i=0; i < seg_length; i++)
-            // {
-            //     seg_point.x = i * first_seg.x + (seg_length - i) * last_seg.x / seg_length;
-            //     seg_point.y = i * first_seg.y + (seg_length - i) * last_seg.y / seg_length; 
+            geometry_msgs::Point first_seg, last_seg, mid_seg;
 
-            //     //장애물과 로봇 사이의 거리구하는 함수
-            //     double dist = sqrt(pow(seg_point.x, 2) + pow(seg_point.y, 2), 2);
-            //     if(min_obs_dist > dist) min_obs_dist = dist;
-            // }
+            first_seg = obstacles[i].segments[j].first_point;
+            last_seg = obstacles[i].segments[j].last_point;
             
-            // 260에서 error나는데 이건 직접 찾아보세요
-            return 1;
-            // return sqrt(pow(((last_seg.y-first_seg.y)*first_seg.x)-((last_seg.x-first_seg.x)*first_seg.y),2),2)/sqrt(pow(last_seg.y-first_seg.y,2)+pow(last_seg.x-first_seg.x,2)); 
+            double seg_length = sqrt(pow(first_seg.x - last_seg.x, 2) + pow(first_seg.y - last_seg.y, 2));
+            
+            for(int k=0; k < seg_length; k++)
+            {
+                mid_seg.x = k * first_seg.x + (seg_length - k) * last_seg.x / seg_length;
+                mid_seg.y = k * first_seg.y + (seg_length - k) * last_seg.y / seg_length; 
+
+                //장애물과 로봇 사이의 거리구하는 함수
+                double dist = sqrt(pow(mid_seg.x - transformStamped.transform.translation.x, 2) + pow(mid_seg.y - transformStamped.transform.translation.y, 2));
+                if(min_obs_dist > dist) min_obs_dist = dist;
+            }
+            return min_obs_dist;
         }
 
         bool obs_checker()
         {
-            if (_segments.empty())
+            if (obstacles.empty())
             {
                 // No obstacles detected
                 ROS_INFO("No obstacles detected.");
