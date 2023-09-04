@@ -23,9 +23,7 @@
 #include "geometry_msgs/PoseStamped.h"
 
 /*for obstacle*/
-#include <obstacle_detector/Obstacles.h> //---> 질문!
-#include <obstacle_detector/SegmentObstacle.h>
-#include <obstacle_detector/CircleObstacle.h>
+#include <obstacle_detector/Obstacles.h>
 
 using namespace std;
 
@@ -64,8 +62,8 @@ class WaypointFollowing
             path_pub_ = nh_.advertise<nav_msgs::Path>("waypoints", 10);
             point_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("target", 10);
 
-            
-            obs_subs = nh_.subscribe("/raw_obstacles",1,&WaypointFollowing::obstaclesCB, this);
+            obs_subs = nh_.subscribe<obstacle_detector::Obstacles>("/obstacles",1000,&WaypointFollowing::obstaclesCB, this);
+
         }
 
         void getPosition()
@@ -84,7 +82,8 @@ class WaypointFollowing
 
         void publishGoal()
         {
-            double safe_dis=10.0;
+            ROS_INFO("func publishGOal.\n");
+            double safe_dis=10000000.0;
             obs_flag=obs_checker();
 
             if ((obs_flag)&&(distance_calc()<safe_dis))
@@ -130,10 +129,18 @@ class WaypointFollowing
 
         void obstaclesCB(const obstacle_detector::Obstacles::ConstPtr& msg)
         {
-            // obstacles_msg = msg;
-            // 레퍼런스로 클래스 받으면 . operator로 맵버 변수를 접근하는게 아니고 -> operator로 접근합니다.
-            _segments = msg->segments;
-            _circles = msg->circles;
+            obstacles.clear();
+            obstacles.push_back(*msg);
+            for(auto i=obstacles.begin(); i!= obstacles.end(); ++i)
+            {
+                for(auto j=obstacles[i].segments.begin(); j!= obstacles[i].segements.end(); ++j)
+                {
+                    distance_calc(j);
+                }
+            }
+            // 정답
+            // cout << "first_point\n" <<obstacles[0].segments[0].first_point << "\n";
+            // cout << "last_point\n" <<obstacles[0].segments[0].last_point << "\n";
         }
 
     private:
@@ -159,15 +166,8 @@ class WaypointFollowing
 
         /*for obstacle*/
         ros::Subscriber obs_subs;
-        // C++ 에서는 std::vector 형식입니다. std::vector 구글링해서 찾아보세요
         vector<obstacle_detector::SegmentObstacle> _segments;
-        vector<obstacle_detector::CircleObstacle> _circles;
-
-        //이렇게 하지 말고
-        // obstacle_detector::Obstacles::ConstPtr obstacles_msg;
-        // obstacle_detector::SegmentObstacle[] _segments;
-        // obstacle_detector::CircleObstacle[] _circles;
-        //obstacle_detector::obstacles_msg;
+        vector<obstacle_detector::Obstacles> obstacles;
 
         int findNearestPoint()
         {
@@ -232,18 +232,11 @@ class WaypointFollowing
             return answer;
         }
 
-        double distance_calc(const int i=0)
+        double distance_calc(int j)
         {
             double min_obs_dist = 9999999.0; // MAX
-            /*
-            precondition: get segment first/last x,y value
-            postcondition: return shortest distance
-            */
-           
-            geometry_msgs::Point first_seg, last_seg;
-            first_seg=_segments[i].first_point;
-            last_seg=_segments[i].last_point;
-            // double seg_length=sqrt(pow(first_seg.x-last_seg.x,2)+pow(first_seg.y-last_seg.y,2),2);
+            
+            // double seg_length = sqrt(pow(first_seg.x-last_seg.x,2)+pow(first_seg.y-last_seg.y,2),2);
             
             // for(int i=0; i < seg_length; i++)
             // {
@@ -262,7 +255,7 @@ class WaypointFollowing
 
         bool obs_checker()
         {
-            if (_segments.empty() && _circles.empty())
+            if (_segments.empty())
             {
                 // No obstacles detected
                 ROS_INFO("No obstacles detected.");
@@ -289,13 +282,13 @@ int main(int argc, char **argv)
 
     WaypointFollowing wp(file_path_);
 
-    ros::Rate rate(0.1);
+    ros::Rate rate(1);
 
     while(ros::ok())
     {
         wp.getPosition();
         wp.publishGoal();
-        rate.sleep();
+        ros::spinOnce();
     }
     return 0;
 }
