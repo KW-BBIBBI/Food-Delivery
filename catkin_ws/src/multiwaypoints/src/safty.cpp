@@ -24,6 +24,8 @@
 
 /*for obstacle*/
 #include <obstacle_detector/Obstacles.h> //---> 질문!
+#include <obstacle_detector/SegmentObstacle.h>
+#include <obstacle_detector/CircleObstacle.h>
 
 using namespace std;
 
@@ -126,11 +128,12 @@ class WaypointFollowing
         }
 
 
-        void obstaclesCB(const obstacle_detector::Obstacles& msg)
+        void obstaclesCB(const obstacle_detector::Obstacles::ConstPtr& msg)
         {
-            obstacles_msg = msg;
-            _segments[] = msg.segments;
-            _circles[] = msg.circles;
+            // obstacles_msg = msg;
+            // 레퍼런스로 클래스 받으면 . operator로 맵버 변수를 접근하는게 아니고 -> operator로 접근합니다.
+            _segments = msg->segments;
+            _circles = msg->circles;
         }
 
     private:
@@ -156,9 +159,14 @@ class WaypointFollowing
 
         /*for obstacle*/
         ros::Subscriber obs_subs;
-        obstacle_detector::Obstacles::ConstPtr obstacles_msg;
-        obstacle_detector::SegmentObstacle[] _segments;
-        obstacle_detector::CircleObstacle[] _circles;
+        // C++ 에서는 std::vector 형식입니다. std::vector 구글링해서 찾아보세요
+        vector<obstacle_detector::SegmentObstacle> _segments;
+        vector<obstacle_detector::CircleObstacle> _circles;
+
+        //이렇게 하지 말고
+        // obstacle_detector::Obstacles::ConstPtr obstacles_msg;
+        // obstacle_detector::SegmentObstacle[] _segments;
+        // obstacle_detector::CircleObstacle[] _circles;
         //obstacle_detector::obstacles_msg;
 
         int findNearestPoint()
@@ -234,7 +242,7 @@ class WaypointFollowing
            
             geometry_msgs::Point first_seg, last_seg;
             first_seg=_segments[i].first_point;
-            last_seg=_segments[i].last_seg;
+            last_seg=_segments[i].last_point;
             // double seg_length=sqrt(pow(first_seg.x-last_seg.x,2)+pow(first_seg.y-last_seg.y,2),2);
             
             // for(int i=0; i < seg_length; i++)
@@ -246,7 +254,10 @@ class WaypointFollowing
             //     double dist = sqrt(pow(seg_point.x, 2) + pow(seg_point.y, 2), 2);
             //     if(min_obs_dist > dist) min_obs_dist = dist;
             // }
-            return sqrt(pow(((last_seg.y-first_seg.y)*first_seg.x)-((last_seg.x-first_seg.x)*first_seg.y),2),2)/sqrt(pow(last_seg.y-first_seg.y,2)+pow(last_seg.x-first_seg.x,2)); 
+            
+            // 260에서 error나는데 이건 직접 찾아보세요
+            return 1;
+            // return sqrt(pow(((last_seg.y-first_seg.y)*first_seg.x)-((last_seg.x-first_seg.x)*first_seg.y),2),2)/sqrt(pow(last_seg.y-first_seg.y,2)+pow(last_seg.x-first_seg.x,2)); 
         }
 
         bool obs_checker()
