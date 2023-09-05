@@ -1,2 +1,3 @@
-/devel
-/build
+devel/
+build/
+.vscode/
