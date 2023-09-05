@@ -50,21 +50,17 @@
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>multiwaypoints</build_depend>
-  <build_depend>navigation</build_depend>
   <build_depend>obstacle_detector</build_depend>
   <build_depend>pointcloud_to_laserscan</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>scout_mini_2dnav</build_depend>
-  <build_depend>slam_gmapping</build_depend>
   <build_export_depend>multiwaypoints</build_export_depend>
   <build_export_depend>navigation</build_export_depend>
   <build_export_depend>obstacle_detector</build_export_depend>
   <build_export_depend>pointcloud_to_laserscan</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>scout_mini_2dnav</build_export_depend>
-  <build_export_depend>slam_gmapping</build_export_depend>
   <exec_depend>multiwaypoints</exec_depend>
-  <exec_depend>navigation</exec_depend>
   <exec_depend>obstacle_detector</exec_depend>
   <exec_depend>pointcloud_to_laserscan</exec_depend>
   <exec_depend>roscpp</exec_depend>

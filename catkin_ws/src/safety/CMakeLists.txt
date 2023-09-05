@@ -9,12 +9,10 @@ project(safety)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   multiwaypoints
-  navigation
   obstacle_detector
   pointcloud_to_laserscan
   roscpp
   scout_mini_2dnav
-  slam_gmapping
   geometry_msgs
   tf2_ros
   move_base_msgs
