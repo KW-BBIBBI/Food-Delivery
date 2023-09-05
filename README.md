@@ -90,8 +90,8 @@ roslaunch display navigation_display.launch
 ### ROBOT
 ```bash
 rosrun scout_bringup bringup_can2usb.bash
-roslaunch kw robot_poiintcloud.launch
-roslaunch kw navigation.launch!
+roslaunch kw robot_pointcloud.launch
+roslaunch kw navigation.launch
 
 ```
 ### LOCAL

@@ -25,6 +25,7 @@
 /*for obstacle*/
 #include <obstacle_detector/Obstacles.h>
 
+
 using namespace std;
 
 class WaypointFollowing
@@ -83,6 +84,7 @@ class WaypointFollowing
         void publishGoal()
         {
             if ((obs_flag)&&(dist_flag)) // obstract confirm
+
             {
                 path_.header.frame_id="map";
                 path_.header.stamp = ros::Time::now();
@@ -142,6 +144,7 @@ class WaypointFollowing
             // 정답
             // cout << "first_point\n" <<obstacles[0].segments[0].first_point << "\n";
             // cout << "last_point\n" <<obstacles[0].segments[0].last_point << "\n";
+
         }
 
     private:
@@ -233,7 +236,10 @@ class WaypointFollowing
         }
 
         double distance_calc(int i, int j)
+
         {
+
+            //segments배열 안에있는 segment의 거리들중에서도 최소인애 발견시 멈춰야함 
             double min_obs_dist = 9999999.0; // MAX
             
             geometry_msgs::Point first_seg, last_seg, mid_seg;
@@ -259,17 +265,33 @@ class WaypointFollowing
         {
             if (obstacles.empty())
             {
-                // No obstacles detected
-                ROS_INFO("No obstacles detected.");
-                return false;
+                seg_point.x = (i * first_seg.x + (seg_length - i) * last_seg.x) / seg_length;
+                seg_point.y = (i * first_seg.y + (seg_length - i) * last_seg.y) / seg_length; 
+
+                //장애물과 로봇 사이의 거리구하는 함수
+                double dist = sqrt(pow(seg_point.x, 2) + pow(seg_point.y, 2));
+                if(min_obs_dist > dist) min_obs_dist = dist;
+
+                //sqrt(pow(((last_seg.y-first_seg.y)*first_seg.x)-((last_seg.x-first_seg.x)*first_seg.y),2),2)/sqrt(pow(last_seg.y-first_seg.y,2)+pow(last_seg.x-first_seg.x,2))
             }
-            else
-            {
-                // Obstacles detected
-                ROS_WARN("Obstacles detected.");
-                return true;
-            }
+            return min_obs_dist; 
         }
+
+        // bool obs_checker()
+        // {
+        //     if (_segments.empty())
+        //     {
+        //         // No obstacles detected
+        //         ROS_INFO("No obstacles detected.");
+        //         return false;
+        //     }
+        //     else
+        //     {
+        //         // Obstacles detected
+        //         ROS_WARN("Obstacles detected.");
+        //         return true;
+        //     }
+        // }
 
 };
 
