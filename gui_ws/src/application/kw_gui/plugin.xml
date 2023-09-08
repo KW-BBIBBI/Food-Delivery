@@ -1,0 +1,20 @@
+<library path = "src">
+    <class name = "KW Plugin" type="kw_gui.kw_module.KWPlugin" base_class_type="rqt_gui_py::Plugin">
+        <description>
+            this is gui for kw univ WeIR user interface
+        </description>
+        <qtgui>
+            <!-- optional grouping...
+            <group>
+              <label>Group</label>
+            </group>
+            <group>
+              <label>Subgroup</label>
+            </group>
+            -->
+            <label>My first Python Plugin</label>
+            <icon type="theme">system-help</icon>
+            <statustip>Great user interface to provide real value.</statustip>
+          </qtgui>
+    </class>
+</library>

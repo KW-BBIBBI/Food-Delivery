@@ -1,0 +1,8 @@
+prefix=/home/pet/gui_ws/devel
+
+Name: kw_gui
+Description: Description of kw_gui
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
