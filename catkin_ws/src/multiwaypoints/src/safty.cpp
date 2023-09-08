@@ -23,7 +23,11 @@
 #include "geometry_msgs/PoseStamped.h"
 
 /*for obstacle*/
-#include <obstacle_detector/Obstacles.h> //---> 질문!
+#include <obstacle_detector/Obstacles.h>
+
+#define SAFE 0 // 안전
+#define DANGER 1 // 위험
+#define SAFE_DIST 10.0 // 안전 거리
 
 using namespace std;
 
@@ -62,8 +66,8 @@ class WaypointFollowing
             path_pub_ = nh_.advertise<nav_msgs::Path>("waypoints", 10);
             point_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("target", 10);
 
-            
-            obs_subs = nh_.subscribe("/raw_obstacles",1,&WaypointFollowing::obstaclesCB, this);
+            obs_subs = nh_.subscribe<obstacle_detector::Obstacles>("/obstacles",1000,&WaypointFollowing::obstaclesCB, this);
+
         }
 
         void getPosition()
@@ -82,30 +86,8 @@ class WaypointFollowing
 
         void publishGoal()
         {
-            double safe_dis=10.0;
-            //obs_flag=obs_checker();
-
-            if (distance_calc()<safe_dis)
+            if (obs_flag) // 장애물 없는 경우 (안전)
             {
-                /* code
-                장애물 발견된 경우 stop하는 코드 작성            
-                 */
-                path_.header.frame_id="map";
-                path_.header.stamp = ros::Time::now();
-                path_.poses = waypoints_;
-                path_pub_.publish(path_);
-
-                carrot.target_pose.pose=prev_carrot.target_pose.pose;
-                carrot.target_pose.header.frame_id = "map";
-                carrot.target_pose.header.stamp = ros::Time::now();
-            
-                carrot_point.header.frame_id = "map";
-                carrot_point.header.stamp = ros::Time::now();
-                carrot_point.pose = carrot.target_pose.pose;
-
-                point_pub_.publish(carrot_point);
-            }
-            else{
                 path_.header.frame_id="map";
                 path_.header.stamp = ros::Time::now();
                 path_.poses = waypoints_;
@@ -123,18 +105,44 @@ class WaypointFollowing
 
                 point_pub_.publish(carrot_point);
             }
+            else
+            {
+                path_.header.frame_id="map";
+                path_.header.stamp = ros::Time::now();
+                path_.poses = waypoints_;
+                path_pub_.publish(path_);
+
+                carrot.target_pose.pose=prev_carrot.target_pose.pose;
+                carrot.target_pose.header.frame_id = "map";
+                carrot.target_pose.header.stamp = ros::Time::now();
+            
+                carrot_point.header.frame_id = "map";
+                carrot_point.header.stamp = ros::Time::now();
+                carrot_point.pose = carrot.target_pose.pose;
+
+                point_pub_.publish(carrot_point);
+            }
         }
 
 
         void obstaclesCB(const obstacle_detector::Obstacles::ConstPtr& msg)
         {
-            obstacles_msg = msg;
-            _segments[] = msg.segments;
-            _circles[] = msg.circles;
+            _circles = msg->circles;
+            _segments = msg->segments;
+
+            int obstacles_num = _circles.size() + _segments.size(); // 장애물의 개수 (circle + segment)
+
+            if(obstacles_num) // 장애물 있는 경우
+            {
+                if(obstacle_dist()) obs_flag = SAFE; // 장애물이 있지만 안전한 거리
+                else obs_flag = DANGER; // 위험
+            }
+            else obs_flag = SAFE; // 장애물이 없는 경우
         }
 
     private:
         bool obs_flag=false;
+
         ros::NodeHandle nh_;
         
         //to get the current position of map and base_link
@@ -156,11 +164,9 @@ class WaypointFollowing
 
         /*for obstacle*/
         ros::Subscriber obs_subs;
-        obstacle_detector::Obstacles::ConstPtr obstacles_msg;
-        obstacle_detector::SegmentObstacle[] _segments;
-        obstacle_detector::CircleObstacle[] _circles;
-        //obstacle_detector::obstacles_msg;
-
+        vector<obstacle_detector::SegmentObstacle> _segments;
+        vector<obstacle_detector::CircleObstacle> _circles;
+        
         int findNearestPoint()
         {
             double distance = numeric_limits<double>::max();
@@ -188,8 +194,6 @@ class WaypointFollowing
             {
                 carrot_index = waypoints_.size();
             }
-
-            // cout<<carrot_index<<endl;
             
             answer.position.x = waypoints_[carrot_index].pose.position.x;
             answer.position.y = waypoints_[carrot_index].pose.position.y;
@@ -212,8 +216,6 @@ class WaypointFollowing
                 carrot_index = waypoints_.size();
             }
 
-            // cout<<carrot_index<<endl;
-            
             answer.position.x = waypoints_[carrot_index].pose.position.x;
             answer.position.y = waypoints_[carrot_index].pose.position.y;
             answer.position.z = waypoints_[carrot_index].pose.position.z;
@@ -224,65 +226,38 @@ class WaypointFollowing
             return answer;
         }
 
-        double distance_calc(int i=0)
+        bool obstacle_dist()
         {
-
-            //segments배열 안에있는 segment의 거리들중에서도 최소인애 발견시 멈춰야함 
-            double min_obs_dist = 9999999.0; // MAX
-            /*
-            precondition: get segment's first/last x,y value
-            postcondition: return shortest distance
-            */
-           
-            geometry_msgs::Point first_seg, last_seg, seg_point;
-            first_seg=_segments[i].first_point;
-            last_seg=_segments[i].last_seg;
-            // double seg_length=sqrt(pow(first_seg.x-last_seg.x,2)+pow(first_seg.y-last_seg.y,2),2);
-            
-            // for(int i=0; i < seg_length; i++)
-            // {
-            //     seg_point.x = i * first_seg.x + (seg_length - i) * last_seg.x / seg_length;
-            //     seg_point.y = i * first_seg.y + (seg_length - i) * last_seg.y / seg_length; 
-
-            //     //장애물과 로봇 사이의 거리구하는 함수
-            //     double dist = sqrt(pow(seg_point.x, 2) + pow(seg_point.y, 2), 2);
-            //     if(min_obs_dist > dist) min_obs_dist = dist;
-            // }
-            return sqrt(pow(((last_seg.y-first_seg.y)*first_seg.x)-((last_seg.x-first_seg.x)*first_seg.y),2),2)/sqrt(pow(last_seg.y-first_seg.y,2)+pow(last_seg.x-first_seg.x,2)); 
-        }
-
-        bool obs_checker()
-        {
-            if (_segments.empty() && _circles.empty())
+            for(int i=0; i<_circles.size(); i++)
             {
-                seg_point.x = (i * first_seg.x + (seg_length - i) * last_seg.x) / seg_length;
-                seg_point.y = (i * first_seg.y + (seg_length - i) * last_seg.y) / seg_length; 
-
-                //장애물과 로봇 사이의 거리구하는 함수
-                double dist = sqrt(pow(seg_point.x, 2) + pow(seg_point.y, 2));
-                if(min_obs_dist > dist) min_obs_dist = dist;
-
-                //sqrt(pow(((last_seg.y-first_seg.y)*first_seg.x)-((last_seg.x-first_seg.x)*first_seg.y),2),2)/sqrt(pow(last_seg.y-first_seg.y,2)+pow(last_seg.x-first_seg.x,2))
+                //로봇과 원 중심까지 거리
+                double center_to_robot = sqrt(pow(_circles[i].center.x - transformStamped.transform.translation.x,2) +
+                pow(_circles[i].center.y - transformStamped.transform.translation.y,2));
+                
+                // 원의 중심과 로봇의 거리 > 안전 거리 + 원의 반지름인 경우 (위험)
+                if(center_to_robot - _circles[i].radius < SAFE_DIST) return DANGER;
             }
-            return min_obs_dist; 
+
+            for(int i=0; i<_segments.size(); i++)
+            {
+                geometry_msgs::Point seg_point;
+
+                // segment 하나의 길이
+                double seg_len = sqrt(pow(_segments[i].first_point.x - _segments[i].last_point.x, 2) + pow(_segments[i].first_point.y - _segments[i].last_point.y, 2));
+
+                // segment의 길이만큼 등분한 것의 좌표 계산
+                for(int k=0; k< seg_len; k++)
+                {
+                    // 내분된 좌표
+                    seg_point.x = (k * _segments[i].first_point.x + (seg_len - k) * _segments[i].last_point.x) / seg_len;
+                    seg_point.y = (k * _segments[i].first_point.y + (seg_len - k) * _segments[i].last_point.y) / seg_len;
+
+                    // seg의 내분된 좌표와 로봇까지 거리 < 안전 거리 (위험)
+                    if(sqrt(pow(seg_point.x - transformStamped.transform.translation.x,2) + pow(seg_point.y - transformStamped.transform.translation.y,2)) < SAFE_DIST) return DANGER;
+                }
+            }
+            return SAFE; // 장애물이 있지만 안전거리 보다 먼 경우 (안전)
         }
-
-        // bool obs_checker()
-        // {
-        //     if (_segments.empty())
-        //     {
-        //         // No obstacles detected
-        //         ROS_INFO("No obstacles detected.");
-        //         return false;
-        //     }
-        //     else
-        //     {
-        //         // Obstacles detected
-        //         ROS_WARN("Obstacles detected.");
-        //         return true;
-        //     }
-        // }
-
 };
 
 
@@ -296,13 +271,13 @@ int main(int argc, char **argv)
 
     WaypointFollowing wp(file_path_);
 
-    ros::Rate rate(0.1);
+    ros::Rate rate(1);
 
     while(ros::ok())
     {
         wp.getPosition();
         wp.publishGoal();
-        rate.sleep();
+        ros::spinOnce();
     }
     return 0;
 }

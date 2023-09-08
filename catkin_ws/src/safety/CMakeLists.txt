@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(multiwaypoints)
-
+project(safety)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -9,16 +8,17 @@ project(multiwaypoints)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  multiwaypoints
+  obstacle_detector
+  pointcloud_to_laserscan
   roscpp
-  # rospkg
-  rospy
+  scout_mini_2dnav
   geometry_msgs
   tf2_ros
   move_base_msgs
   actionlib
   nav_msgs
   roslib
-  obstacle_detector
 )
 
 ## System dependencies are found with CMake's conventions
@@ -112,8 +112,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES multiwaypoints
-  CATKIN_DEPENDS roscpp rospy obstacle_detector
+#  LIBRARIES safety
+#  CATKIN_DEPENDS multiwaypoints navigation obstacle_detector pointcloud_to_laserscan roscpp scout_mini_2dnav slam_gmapping
 #  DEPENDS system_lib
 )
 
@@ -124,13 +124,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include 
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/multiwaypoints.cpp
+#   src/${PROJECT_NAME}/safety.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -141,12 +141,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(save_waypoint src/save_waypoint.cpp)
-target_link_libraries(save_waypoint ${catkin_LIBRARIES})
-add_executable(follow_waypoint src/follow_waypoint.cpp)
-target_link_libraries(follow_waypoint ${catkin_LIBRARIES})
-add_executable(safty src/safty.cpp)
-target_link_libraries(safty ${catkin_LIBRARIES})
+# add_executable(${PROJECT_NAME}_node src/safety_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -159,7 +154,9 @@ target_link_libraries(safty ${catkin_LIBRARIES})
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
@@ -208,12 +205,10 @@ target_link_libraries(safty ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_multiwaypoints.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_safety.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-
