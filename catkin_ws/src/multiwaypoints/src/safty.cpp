@@ -29,6 +29,7 @@
 #define DANGER 1 // 위험
 #define SAFE_DIST 10.0 // 안전 거리
 
+
 using namespace std;
 
 class WaypointFollowing
