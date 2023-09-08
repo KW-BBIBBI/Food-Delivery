@@ -1,0 +1,8 @@
+prefix=/home/pet/gui_ws/install
+
+Name: kw
+Description: Description of kw
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
