@@ -189,11 +189,11 @@
                 will control the frame rate. -->
               <updateRate>0.0</updateRate>
               <cameraName>camera_ir</cameraName>
-              <imageTopicName>/limo/color/image_raw</imageTopicName>
-              <cameraInfoTopicName>/limo/color/camera_info</cameraInfoTopicName>
-              <depthImageTopicName>/limo/depth/image_raw</depthImageTopicName>
-              <depthImageCameraInfoTopicName>/limo/depth/camera_info</depthImageCameraInfoTopicName>
-              <pointCloudTopicName>/limo/depth/points</pointCloudTopicName>
+              <imageTopicName>/camera/color/image_raw</imageTopicName>
+              <cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
+              <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
+              <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
+              <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
               <frameName>camera_link</frameName>
               <cameraname>depth_camera_link</cameraname>
               
@@ -213,11 +213,11 @@
         </sensor>
     </gazebo>
 
-    <link name='laser_link'>
-        <pose>0 0 0 0 0 0</pose>
+    <link name='front_laser_link'>
+        <pose>0 0 0 0 0 0 0</pose>
         <inertial>
             <mass value="0.1"/>
-            <origin xyz="0.0 0 0" rpy="0 0 0"/>
+            <origin xyz="0.0 0 0.0" rpy="0 0 0"/>
             <inertia
                 ixx="1e-6" ixy="0" ixz="0"
                 iyy="1e-6" iyz="0"
@@ -225,35 +225,37 @@
             />
         </inertial>
         <visual name='laser_visual'>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0.0 0 -0.01" rpy="0 0 0"/>
             <geometry>
-                <cylinder radius="0.02" length="0.01"/>
+                <sphere radius="0.02" length="0.01"/>
             </geometry>
-            <color rgba="1.0 0.0 0.0 1.0"/>
+            <color rgba="1.0 0.0 0.0 0.0"/>
+            <enabeled>false</enabeled>
         </visual>
         <collision name='laser_collision'>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <cylinder radius="0.032" length="0.016"/>
+                <cylinder radius="0.0032" length="0.0016"/>
             </geometry>
+            <enabeled>false</enabeled>
         </collision>
       </link>
 
-      <joint
+  <joint
     name="laser_joint"
     type="fixed">
     <origin
-      xyz="0.55 0 -0.1"
+      xyz="0.20 0 -0.020"
       rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
-      link="laser_link" />
+      link="front_laser_link" />
   </joint>
 
-  <gazebo reference="laser_link">
+  <gazebo reference="front_laser_link">
     <sensor type="ray" name="laser_sensor">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>8</update_rate>
       <ray>
@@ -277,8 +279,8 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_laser_sensor" filename="libgazebo_ros_laser.so">
-        <topicName>/robot1/scan</topicName>
-        <frameName>laser_link</frameName>
+        <topicName>/scan/front</topicName>
+        <frameName>front_laser_link</frameName>
       </plugin>
     </sensor>
   </gazebo>
