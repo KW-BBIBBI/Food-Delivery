@@ -7,3 +7,8 @@ roslaunch scout_gazebo_sim (choose whatever u want)
 
 >2. run lunchfile or ruin files
 >3. checkout rviz or gazebo tools
+
+# Keyboard Teleop
+```
+rosrun teleop_twistkeyboard teleop_twist_keyboard.py
+```
