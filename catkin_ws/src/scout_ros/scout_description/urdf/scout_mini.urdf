@@ -280,7 +280,7 @@
             <robotNamespace></robotNamespace>
             <leftFrontJoint>front_left_wheel</leftFrontJoint>
             <rightFrontJoint>front_right_wheel</rightFrontJoint>
-            <leftRearJoint>rear_left_wheel</leftRearJoint>
+            <leftRearJoint>rear_left_wheel</leftRearJlidaroint>
             <rightRearJoint>rear_right_wheel</rightRearJoint>
             <wheelSeparation>4</wheelSeparation>
             <wheelDiameter>0.32918</wheelDiameter>
