@@ -117,20 +117,15 @@
     <link name="camera_link">
         <visual>
           <origin
-            xyz="0 0 01"
-            rpy="0 0 0" />
+            xyz="0.0 0 0.0"
+            rpy="0 0 3.141592" />
             <geometry>
-              <box size="0.073000 0.276000 0.072000"/>
+              <box size="0.035000 0.276000 0.05000"/>
             </geometry>
+            <material>
+                <color rgba="0.0 0.0 0.0 0.0"/>
+            </material>
         </visual>
-        <collision>
-          <origin
-            xyz="0 0 0"
-            rpy="0 0 0" />
-            <geometry>
-              <box size="0.073000 0.276000 0.072000"/>
-            </geometry>
-          </collision>
         <inertial>
           <origin
             xyz="0 0 0"
@@ -151,7 +146,7 @@
 
     <joint name="camera_joint" type="fixed">
         <origin
-          xyz="0.55 0 0"
+          xyz="0 0 0"
           rpy="0 0 0" />
         <parent
           link="base_link" />
@@ -161,7 +156,7 @@
 
     <gazebo reference="camera_link">
         <sensor name="sensor_camera" type="depth">
-            <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+            <pose>0.3 0.0 0.0 0.0 0.0 0.0</pose>
             <always_on>true</always_on>
             <visualize>true</visualize>
             <update_rate>10.0</update_rate>
@@ -185,11 +180,11 @@
                 will control the frame rate. -->
               <updateRate>0.0</updateRate>
               <cameraName>camera_ir</cameraName>
-              <imageTopicName>/limo/color/image_raw</imageTopicName>
-              <cameraInfoTopicName>/limo/color/camera_info</cameraInfoTopicName>
-              <depthImageTopicName>/limo/depth/image_raw</depthImageTopicName>
-              <depthImageCameraInfoTopicName>/limo/depth/camera_info</depthImageCameraInfoTopicName>
-              <pointCloudTopicName>/limo/depth/points</pointCloudTopicName>
+              <imageTopicName>/camera/color/image_raw</imageTopicName>
+              <cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
+              <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
+              <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
+              <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
               <frameName>camera_link</frameName>
               <cameraname>depth_camera_link</cameraname>
               
@@ -225,13 +220,10 @@
             <geometry>
                 <cylinder radius="0.02" length="0.01"/>
             </geometry>
+            <material>
+                <color rgba="0.0 0.0 0.0 0.0"/>
+            </material>            
         </visual>
-        <collision name='laser_collision'>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <geometry>
-                <cylinder radius="0.032" length="0.016"/>
-            </geometry>
-        </collision>
       </link>
 
       <joint
