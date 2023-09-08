@@ -138,6 +138,17 @@ class WaypointFollowing
                 else obs_flag = DANGER; // 위험
             }
             else obs_flag = SAFE; // 장애물이 없는 경우
+
+            if (obs_flag)
+            {
+                // No obstacles detected
+                ROS_INFO("No obstacles detected.");
+            }
+            else
+            {
+                // Obstacles detected
+                ROS_WARN("Obstacles detected.");
+            }
         }
 
     private:
