@@ -100,3 +100,17 @@ roslaunch display obstacle_display.launch
 ```
 <p align="left"><img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/142612336/0542322d-380d-4b8e-bd4e-b532506050e0" height="228" width="400">    <img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/142612336/bca0b58e-2e9c-45a8-ba10-6707451cf0f9" height="228" width="400""></p>
 
+## GUI
+### ROBOT
+```bash
+rosrun scout_bringup bringup_can2usb.bash
+roslaunch kw robot_pointcloud.launch
+```
+### LOCAL
+```bash
+roslaunch display multiwaypoints_display.launch
+```
+
+<p align="left"><img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/e885ac1a-6e22-49e3-82bb-04008456b80c" height="280" width="250">    <img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/f45d03d5-b8ae-4936-8335-7e987cc19754" height="280" width="550""></p>
+
+
