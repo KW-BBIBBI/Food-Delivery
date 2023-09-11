@@ -82,9 +82,8 @@ rosrun multiwaypoints follow_waypoint
 ```bash
 roslaunch display navigation_display.launch
 ```
-![WAYPOINT](https://github.com/KW-BBIBBI/Food-Delivery/assets/125299969/0978ba11-3dcf-4232-9b1d-62c020fd68d2)
 
-![MultiWay](https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/76d2d5d2-0305-4f02-ab34-566cc73b73fd)
+<p align="left"><img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/125299969/0978ba11-3dcf-4232-9b1d-62c020fd68d2" height="228" width="400">    <img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/76d2d5d2-0305-4f02-ab34-566cc73b73fd" height="228" width="600""></p>
 
 ## Obstacle Detector
 ### ROBOT
