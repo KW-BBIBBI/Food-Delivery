@@ -1,8 +1,0 @@
-<launch>
-    <include file="$(find limo_gazebo_sim)/launch/limo_four_diff_indoor.launch" />
-    <include file="$(find wego)/launch/navigation_diff.launch" />
-
-    <node name="save_n_following" pkg="multiwaypoints" type="save_n_following"/>
-    <node name="manager" pkg="kw" type="manager.py"/>
-    <node name="kw_gui" pkg="kw_gui" type="kw_gui"/>
-</launch>

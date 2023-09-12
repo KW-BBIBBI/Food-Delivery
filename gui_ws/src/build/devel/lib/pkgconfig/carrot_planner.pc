@@ -1,8 +1,0 @@
-prefix=/home/pet/gui_ws/src/build/devel
-
-Name: carrot_planner
-Description: Description of carrot_planner
-Version: 1.17.1
-Cflags: -I/home/pet/gui_ws/src/carrot_following/limo_navigation/navigation/carrot_planner/include
-Libs: -L${prefix}/lib -lcarrot_planner
-Requires: angles base_local_planner costmap_2d nav_core pluginlib roscpp tf2 tf2_ros

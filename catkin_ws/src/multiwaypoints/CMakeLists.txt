@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(multiwaypoints)
 
-
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -18,7 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   nav_msgs
   roslib
-  obstacle_detector
+  kw_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -113,7 +112,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES multiwaypoints
-  CATKIN_DEPENDS roscpp rospy obstacle_detector
+#  CATKIN_DEPENDS roscpp rospy
 #  DEPENDS system_lib
 )
 
@@ -124,7 +123,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include 
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -145,8 +144,9 @@ add_executable(save_waypoint src/save_waypoint.cpp)
 target_link_libraries(save_waypoint ${catkin_LIBRARIES})
 add_executable(follow_waypoint src/follow_waypoint.cpp)
 target_link_libraries(follow_waypoint ${catkin_LIBRARIES})
-add_executable(safty src/safty.cpp)
-target_link_libraries(safty ${catkin_LIBRARIES})
+
+add_executable(save_n_following src/save_n_following.cpp)
+target_link_libraries(save_n_following ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -215,5 +215,3 @@ target_link_libraries(safty ${catkin_LIBRARIES})
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-

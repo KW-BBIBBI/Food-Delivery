@@ -56,8 +56,9 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
 
-  <build_depend>obstacle_detector</build_depend>
-  <exec_depend>obstacle_detector</exec_depend>
+  <build_depend>kw_msgs</build_depend>
+  <exec_depend>kw_msgs</exec_depend>
+
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

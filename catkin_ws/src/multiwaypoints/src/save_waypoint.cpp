@@ -38,11 +38,12 @@ class SaveWP
         }
 };
 
+
 int main(int argc, char ** argv)
 {
-    ros::init(argc, argv, "save_waypoints"); //node initialize
+    ros::init(argc, argv, "save_waypoints");
     
-    string pkg_path_ = ros::package::getPath("multiwaypoints"); // multiwaypoints라는 패키지의 path get
+    string pkg_path_ = ros::package::getPath("multiwaypoints");
             
     string file_path_ = pkg_path_ + "/data/waypoints.csv";
     SaveWP swp(file_path_);

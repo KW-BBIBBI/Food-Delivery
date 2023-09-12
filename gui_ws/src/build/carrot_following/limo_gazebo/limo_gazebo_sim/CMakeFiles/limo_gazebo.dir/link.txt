@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../devel/lib/liblimo_gazebo.a  CMakeFiles/limo_gazebo.dir/src/limo_skid_steer.cpp.o
-/usr/bin/ranlib ../../../devel/lib/liblimo_gazebo.a
