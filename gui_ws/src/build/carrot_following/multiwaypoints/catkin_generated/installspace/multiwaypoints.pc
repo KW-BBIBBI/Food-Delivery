@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: multiwaypoints
-Description: Description of multiwaypoints
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

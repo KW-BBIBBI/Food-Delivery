@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: kw_msgs
-Description: Description of kw_msgs
-Version: 0.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: roscpp rospy message_runtime actionlib_msgs std_msgs

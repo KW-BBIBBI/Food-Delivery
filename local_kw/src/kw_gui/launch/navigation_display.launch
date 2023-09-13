@@ -1,0 +1,5 @@
+<launch>
+    <!-- run rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find display)/rviz/navgiation_display.launch.rviz" />
+
+</launch>
