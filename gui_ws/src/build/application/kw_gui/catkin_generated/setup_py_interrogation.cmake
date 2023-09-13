@@ -1,7 +1,0 @@
-set(kw_gui_SETUP_PY_SETUP_MODULE "distutils.core")
-set(kw_gui_SETUP_PY_VERSION "0.0.0")
-set(kw_gui_SETUP_PY_SCRIPTS "")
-set(kw_gui_SETUP_PY_PACKAGES "kw_gui")
-set(kw_gui_SETUP_PY_PACKAGE_DIRS "src/kw_gui")
-set(kw_gui_SETUP_PY_MODULES "")
-set(kw_gui_SETUP_PY_MODULE_DIRS "")

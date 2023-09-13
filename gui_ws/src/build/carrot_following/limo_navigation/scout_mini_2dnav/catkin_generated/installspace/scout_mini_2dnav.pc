@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: scout_mini_2dnav
-Description: Description of scout_mini_2dnav
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

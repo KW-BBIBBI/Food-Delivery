@@ -1,8 +1,0 @@
-prefix=/home/pet/gui_ws/src/build/devel
-
-Name: limo_gazebo_sim
-Description: Description of limo_gazebo_sim
-Version: 0.0.1
-Cflags: -I/home/pet/gui_ws/src/carrot_following/limo_gazebo/limo_gazebo_sim/include
-Libs: -L${prefix}/lib -lgazebo_ros_ackerman
-Requires: roscpp sensor_msgs

@@ -1,101 +1,119 @@
 <?xml version="1.0"?>
 
-<!-- 
-Reference:
-    [1] https://answers.ros.org/question/246914/four-wheeled-skid-steering-in-gazebo-and-ros-using-gazebo-ros-control/
-    [2] https://answers.ros.org/question/10119/gazebo-controller-for-skid-steering/
-    [3] https://answers.ros.org/question/9640/rotation-error-in-gazebo-simulation/
-    [4] https://www.youtube.com/watch?v=fuRAv6PDwdw 
--->
+<robot name="scout_v2" 
+    xmlns:xacro="http://ros.org/wiki/xacro">
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
-    <xacro:include filename="$(find scout_description)/urdf/scout_wheel.gazebo" />
+    <xacro:arg name="robot_namespace" default="/" />
+    <xacro:arg name="urdf_extras" default="empty.urdf" />
 
-    <!-- Additional definitions for simulation -->
-    <!-- <gazebo reference="base_link">
-        <material>Gazebo/Grey</material>
-    </gazebo> -->
+    <xacro:include filename="$(find scout_description)/urdf/scout_wheel_type1.xacro" />
+    <xacro:include filename="$(find scout_description)/urdf/scout_wheel_type2.xacro" />
 
-    <!-- Actuator configurations -->
-    <xacro:scout_wheel_transmission wheel_prefix="front_right" />
-    <xacro:scout_wheel_transmission wheel_prefix="front_left" />
-    <xacro:scout_wheel_transmission wheel_prefix="rear_left" />
-    <xacro:scout_wheel_transmission wheel_prefix="rear_right" />
+    <!-- Variables -->
+    <xacro:property name="M_PI" value="3.14159"/>
 
-    <!-- Controller configurations -->
-    <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>$(arg robot_namespace)</robotNamespace>
-        </plugin>
-    </gazebo>
+    <!-- Vehicle Geometries -->
+    <xacro:property name="base_x_size" value="0.9250000" />
+    <xacro:property name="base_y_size" value="0.380000" />
+    <xacro:property name="base_z_size" value="0.210000" />
 
-    <!-- kp spring constant, kd damping constant -->
-    <gazebo reference="front_left_wheel_link">
-        <mu1>0.9</mu1>
-        <mu2>0.7</mu2>
-        <kp>1000000000.0</kp>
-        <kd>0.0</kd>
-        <minDepth>0.001</minDepth>
-        <fdir1>1 0 0</fdir1>
+    <xacro:property name="wheelbase" value="0.498" />
+    <xacro:property name="track" value="0.58306" />
+    <xacro:property name="wheel_vertical_offset" value="-0.0702" />
 
-    </gazebo>
-    <gazebo reference="front_right_wheel_link">
-        <mu1>0.9</mu1>
-        <mu2>0.7</mu2>
-        <kp>1000000000.0</kp>
-        <kd>0.0</kd>
-        <minDepth>0.001</minDepth>
-        <fdir1>1 0 0</fdir1>
+    <xacro:property name="wheel_length" value="1.1653e-01" />
+    <xacro:property name="wheel_radius" value="1.6459e-01" />
 
-    </gazebo>
-    <gazebo reference="rear_left_wheel_link">
-        <mu1>0.9</mu1>
-        <mu2>0.7</mu2>
-        <kp>1000000000.0</kp>
-        <kd>0.0</kd>
-        <minDepth>0.001</minDepth>
-        <fdir1>1 0 0</fdir1>
+    <!-- Base link -->
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://scout_description/meshes/base_link.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.008" rpy="0 0 0" />
+            <geometry>
+                <box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin xyz="0 0 ${base_z_size/6}" rpy="0 0 0" />
+            <geometry>
+                <box size="${base_x_size/6} ${base_y_size*1.65} ${base_z_size/3}"/>
+            </geometry>
+        </collision>
+    </link>
 
-    </gazebo>
-    <gazebo reference="rear_right_wheel_link">
-        <mu1>0.9</mu1>
-        <mu2>0.7</mu2>
-        <kp>1000000000.0</kp>
-        <kd>0.0</kd>
-        <minDepth>0.001</minDepth>
-        <fdir1>1 0 0</fdir1>
-        <!--maxContacts value="64"/-->
-    </gazebo>
-    
-    <!-- <gazebo>
-        <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-            <updateRate>100.0</updateRate>
-            <robotNamespace></robotNamespace>
-            <leftFrontJoint>front_left_wheel</leftFrontJoint>
-            <rightFrontJoint>front_right_wheel</rightFrontJoint>
-            <leftRearJoint>rear_left_wheel</leftRearJoint>
-            <rightRearJoint>rear_right_wheel</rightRearJoint>
-            <wheelSeparation>4</wheelSeparation>
-            <wheelDiameter>0.32918</wheelDiameter>
-            <robotBaseFrame>base_link</robotBaseFrame>
-            <torque>1000</torque>
-            <commandTopic>cmd_vel</commandTopic>
-            <broadcastTF>true</broadcastTF>
-            <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
-            <covariance_x>0.000100</covariance_x>
-            <covariance_y>0.000100</covariance_y>
-            <covariance_yaw>0.010000</covariance_yaw>
-        </plugin>
-    </gazebo> -->
+    <!-- <joint name="chassis_link_joint" type="fixed">
+        <origin xyz="0 0 ${wheel_radius - wheel_vertical_offset}" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="chassis_link" />
+    </joint> -->
 
-    <!-- <gazebo>
-        <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
-            <commandTopic>cmd_vel</commandTopic>
-            <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
-            <odometryRate>20.0</odometryRate>
-            <robotBaseFrame>base_footprint</robotBaseFrame>
-        </plugin>
-    </gazebo> -->
+    <link name="inertial_link">
+        <inertial>
+            <mass value="50" />
+            <!-- <mass value="50" /> -->
+            <!-- <origin xyz="-0.00065 -0.085 0.062" />
+            <inertia ixx="0.6022" ixy="-0.02364" ixz="-0.1197" iyy="1.7386" iyz="-0.001544" izz="2.0296" /> -->
+            <origin xyz="0.0 0.0 0.0" />
+            <inertia ixx="2.288641" ixy="0" ixz="0" iyy="5.103976" iyz="0" izz="3.431465" />
+        </inertial>
+    </link>
+
+    <joint name="inertial_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="inertial_link" />
+    </joint>
+
+    <!-- For testing, hang the robot up in the air -->
+    <!-- <link name="world" />
+    <joint name="world_to_base_link=" type="fixed">
+        <origin xyz="0 0 0.5" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint> -->
+
+    <!-- Scout wheel macros -->
+    <!-- wheel labeled from 0 to 3, conter-clockwise, starting from front right wheel -->
+    <!-- motor 1 and 2 (left side) are mechanically installed in a reversed direction -->
+    <xacro:scout_wheel_type1 wheel_prefix="front_right">
+        <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
+    </xacro:scout_wheel_type1>
+    <xacro:scout_wheel_type2 wheel_prefix="front_left">
+        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_wheel_type2>
+    <xacro:scout_wheel_type1 wheel_prefix="rear_left">
+        <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_wheel_type1>
+    <xacro:scout_wheel_type2 wheel_prefix="rear_right">
+        <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
+    </xacro:scout_wheel_type2>
+
+
+
+    <link name="front_mount" />
+
+    <joint name="front_mount_joint" type="fixed">
+        <origin xyz="0.325 0 0.112701" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="front_mount" />
+    </joint>
+
+    <link name="rear_mount" />
+
+    <joint name="rear_mount_joint" type="fixed">
+        <origin xyz="-0.325 0 0.112701" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="rear_mount" />
+    </joint>
+
+    <!-- Additional definitions -->
+    <xacro:include filename="$(arg urdf_extras)" />
+
+    <!-- Gazebo definitions  -->
+    <xacro:include filename="$(find scout_description)/urdf/scout_v2.gazebo" />
 </robot>

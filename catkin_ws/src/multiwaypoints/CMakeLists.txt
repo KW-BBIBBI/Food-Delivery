@@ -145,8 +145,10 @@ add_executable(save_waypoint src/save_waypoint.cpp)
 target_link_libraries(save_waypoint ${catkin_LIBRARIES})
 add_executable(follow_waypoint src/follow_waypoint.cpp)
 target_link_libraries(follow_waypoint ${catkin_LIBRARIES})
-add_executable(safty src/safty.cpp)
-target_link_libraries(safty ${catkin_LIBRARIES})
+# add_executable(safty src/safty.cpp)
+# target_link_libraries(safty ${catkin_LIBRARIES})
+add_executable(gazebo_safety src/gazebo_safety.cpp)
+target_link_libraries(gazebo_safety ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

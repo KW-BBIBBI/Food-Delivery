@@ -1,8 +1,0 @@
-prefix=/home/pet/gui_ws/src/build/devel
-
-Name: nav_core
-Description: Description of nav_core
-Version: 1.17.1
-Cflags: -I/home/pet/gui_ws/src/carrot_following/limo_navigation/navigation/nav_core/include
-Libs: -L${prefix}/lib 
-Requires: std_msgs geometry_msgs tf2_ros costmap_2d

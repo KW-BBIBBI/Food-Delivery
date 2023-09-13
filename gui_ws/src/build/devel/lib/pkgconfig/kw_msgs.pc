@@ -1,8 +1,0 @@
-prefix=/home/pet/gui_ws/src/build/devel
-
-Name: kw_msgs
-Description: Description of kw_msgs
-Version: 0.0.0
-Cflags: -I/home/pet/gui_ws/src/build/devel/include
-Libs: -L${prefix}/lib 
-Requires: roscpp rospy message_runtime actionlib_msgs std_msgs

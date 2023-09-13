@@ -1,8 +1,0 @@
-prefix=/home/pet/gui_ws/src/build/devel
-
-Name: kw
-Description: Description of kw
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

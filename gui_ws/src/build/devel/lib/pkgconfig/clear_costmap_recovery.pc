@@ -1,8 +1,0 @@
-prefix=/home/pet/gui_ws/src/build/devel
-
-Name: clear_costmap_recovery
-Description: Description of clear_costmap_recovery
-Version: 1.17.1
-Cflags: -I/home/pet/gui_ws/src/carrot_following/limo_navigation/navigation/clear_costmap_recovery/include
-Libs: -L${prefix}/lib -lclear_costmap_recovery
-Requires: costmap_2d nav_core pluginlib roscpp tf2_ros

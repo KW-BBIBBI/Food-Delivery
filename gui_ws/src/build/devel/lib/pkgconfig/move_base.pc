@@ -1,8 +1,0 @@
-prefix=/home/pet/gui_ws/src/build/devel
-
-Name: move_base
-Description: Description of move_base
-Version: 1.17.1
-Cflags: -I/home/pet/gui_ws/src/build/devel/include -I/home/pet/gui_ws/src/carrot_following/limo_navigation/navigation/move_base/include -I/usr/include/eigen3
-Libs: -L${prefix}/lib -lmove_base
-Requires: dynamic_reconfigure geometry_msgs move_base_msgs nav_msgs roscpp
