@@ -102,7 +102,7 @@ roslaunch display obstacle_display.launch
 ### ROBOT
 ```bash
 rosrun scout_bringup bringup_can2usb.bash
-roslaunch kw final_.launch
+roslaunch kw final.launch
 ```
 ### LOCAL
 ```bash
