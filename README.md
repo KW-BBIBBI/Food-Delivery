@@ -59,7 +59,6 @@ roslaunch display gmapping_display.launch
 rosrun scout_bringup bringup_can2usb.bash
 roslaunch kw robot_bringup.launch
 roslaunch kw navigation.launch
-rosrun kw application.py
 ```
 ### LOCAL
 ```bash
@@ -103,13 +102,11 @@ roslaunch display obstacle_display.launch
 ### ROBOT
 ```bash
 rosrun scout_bringup bringup_can2usb.bash
-roslaunch kw robot_pointcloud.launch
+roslaunch kw final_.launch
 ```
 ### LOCAL
 ```bash
-roslaunch display multiwaypoints_display.launch
+rosrun kw_gui kw_gui
 ```
 
 <p align="left"><img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/e885ac1a-6e22-49e3-82bb-04008456b80c" height="280" width="250">    <img src="https://github.com/KW-BBIBBI/Food-Delivery/assets/81313733/f45d03d5-b8ae-4936-8335-7e987cc19754" height="280" width="550""></p>
-
-
