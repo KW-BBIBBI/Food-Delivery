@@ -1,4 +1,0 @@
-<launch>
-    <node name="kw_manager" pkg="kw" type="manager.py"/>
-    <node name="kw_save_n_follow" pkg="multiwaypoints" type="save_n_following"/> 
-</launch>

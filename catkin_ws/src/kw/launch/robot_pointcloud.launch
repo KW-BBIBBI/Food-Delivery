@@ -1,8 +1,0 @@
-<launch>
-    <include file="$(find kw)/launch/robot_bringup.launch" />
-
-    <node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link" args="0.12 0.0 0.29 0 0 0 base_link camera_link 50"/>
-    <include file="$(find realsense2_camera)/launch/demo_pointcloud.launch" />
-    <include file="$(find pointcloud_to_laserscan)/launch/sample_node.launch" />
-    <include file="$(find obstacle_detector)/launch/nodes.launch" />\    
-</launch>

@@ -1,5 +1,0 @@
-<launch>
-    <include file="$(find kw)/launch/robot_pointcloud.launch" />
-    <include file="$(find kw)/launch/application.launch" />
-    <include file="$(find kw)/launch/navigation.launch" />
-</launch>
