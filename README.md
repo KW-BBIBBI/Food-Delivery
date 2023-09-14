@@ -38,6 +38,16 @@
 |:---:|:---:|
 |ROBOT|WeGo-ST MINI|
 
+## Install CODE
+clone `LOCAL branch` in LOCAL PC
+```bash
+git clone -b LOCAL https://github.com/KW-BBIBBI/Food-Delivery.git
+```
+
+clone `ROBOT branch` in ROBOT
+```bash
+git clone -b ROBOT https://github.com/KW-BBIBBI/Food-Delivery.git
+```
 
 ## SLAM
 ### ROBOT
