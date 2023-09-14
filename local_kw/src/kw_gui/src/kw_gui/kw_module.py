@@ -46,10 +46,13 @@ class KWPlugin(Plugin):
         ## stop button setting
         self._widget.stopButton.clicked.connect(self.stopButtonCB)
 
+        ## patrol button setting
+        self._widget.patrolButton.clicked.connect(self.patrolButtonCB)
+
         ## subscriber setting
         rospy.Subscriber("/kw/status", String, self.labelCB)
 
-        # rospy.wait_for_service('/kw/button')
+        rospy.wait_for_service('/kw/button')
         self.button_click = rospy.ServiceProxy('/kw/button', Button)
 
         ## service setting
@@ -58,12 +61,6 @@ class KWPlugin(Plugin):
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
 
         context.add_widget(self._widget)
-        
-    def SLAM_displayButtonCB(self):
-        os.system("gnome-terminal -e 'roslaunch kw_gui SLAM_display.launch'")
-
-    def Navigation_displayButtonCB(self):
-        os.system("gnome-terminal -e 'roslaunch kw_gui navigation_display.launch'")
 
     ########### Label callback function ########################
     def labelCB(self, data):
@@ -101,9 +98,15 @@ class KWPlugin(Plugin):
     def stopButtonCB(self):
         push_button = "stop"
         self.button_click(push_button)
-    
 
+    ########### Button Callback for patrol ################
+    def patrolButtonCB(self):
+        push_button = "patrol"
+        self.button_click(push_button)
 
+    ########### Button Callback for display ################
+    def SLAM_displayButtonCB(self):
+        os.system("gnome-terminal -e 'roslaunch kw_gui SLAM_display.launch'")
 
-
-
+    def Navigation_displayButtonCB(self):
+        os.system("gnome-terminal -e 'roslaunch kw_gui navigation_display.launch'")
